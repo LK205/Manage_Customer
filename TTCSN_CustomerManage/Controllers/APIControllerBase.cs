@@ -5,7 +5,7 @@ namespace TTCSN_CustomerManage.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class APIController : ControllerBase
+    public class APIControllerBase : ControllerBase
     {
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\TTCSN_CustomerManage\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj": {}
+    "D:\\Manage_Customer\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj": {}
   },
   "projects": {
-    "D:\\TTCSN_CustomerManage\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj": {
+    "D:\\Manage_Customer\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TTCSN_CustomerManage\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj",
+        "projectUniqueName": "D:\\Manage_Customer\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj",
         "projectName": "TTCSN_CustomerManage",
-        "projectPath": "D:\\TTCSN_CustomerManage\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj",
+        "projectPath": "D:\\Manage_Customer\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\TTCSN_CustomerManage\\TTCSN_CustomerManage\\obj\\",
+        "outputPath": "D:\\Manage_Customer\\TTCSN_CustomerManage\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

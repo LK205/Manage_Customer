@@ -11,7 +11,7 @@ using TTCSN_CustomerManage.Models;
 namespace TTCSN_CustomerManage.Controllers
 {
 
-    public class AccountController : APIController
+    public class AccountController : APIControllerBase
     {
         private readonly ApplicationDbContext _db;
 
@@ -20,7 +20,7 @@ namespace TTCSN_CustomerManage.Controllers
             _db = db;
         }
 
-        [HttpGet("GetAllAccount")]
+        [HttpGet("GetAll")]
         public async Task<List<AccountAppDto>> GetAll()
         {
             var result = from c in _db.AccountApps

@@ -55,6 +55,8 @@ namespace TTCSN_CustomerManage.Data
 
                 entity.Property(e => e.Address).HasMaxLength(50);
 
+                entity.Property(e => e.ImageBase64).HasMaxLength(250);
+
                 entity.Property(e => e.ClassCustomer).HasMaxLength(50);
 
                 entity.Property(e => e.Email).HasMaxLength(50);
@@ -66,7 +68,6 @@ namespace TTCSN_CustomerManage.Data
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(50);
-
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.AccountInfors)
                     .HasForeignKey(d => d.AccountId)
