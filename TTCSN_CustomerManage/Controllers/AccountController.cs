@@ -35,6 +35,39 @@ namespace TTCSN_CustomerManage.Controllers
             return result.ToList();
 
         }
+        [HttpGet("GetById")]
+        public async Task<AccountAppDto> GetAllById(long id)
+        {
+            var check = await _db.AccountApps.FirstOrDefaultAsync(p=> p.Id == id);
+
+            if (check == null)
+            {
+                throw new Exception("Id does not exits");
+            }
+            else
+            {
+                var result = new AccountAppDto
+                {
+                    Id = check.Id,
+                    AccountPermissions = check.AccountPermissions,
+                    PassWord = check.PassWord,
+                    UserName = check.UserName
+                };
+                return result;
+            }
+
+        }
+        [HttpGet("CheckAccount")]
+        public async Task<long> CheckAccount(string UserName, string Password)
+        {
+            var result = await _db.AccountApps.FirstOrDefaultAsync(p => p.UserName == UserName && p.PassWord == Password);
+            if (result == null)
+            {
+                return 0;
+            }
+            else return result.Id;
+
+        }
         [HttpPost("Create")]
         public async Task Create(AccountAppDto dto)
         {

@@ -15,8 +15,8 @@ namespace TTCSN_CustomerManage.Data
         }
 
         public virtual DbSet<AccountApp> AccountApps { get; set; }
-        public virtual DbSet<AccountInfor> AccountInfors { get; set; }
-        public virtual DbSet<UserRequire> UserRequires { get; set; }
+        public virtual DbSet<CustomerInfor> CustomerInfors { get; set; }
+        public virtual DbSet<CustomerRequire> CustomerRequires { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,11 +46,11 @@ namespace TTCSN_CustomerManage.Data
                     .HasMaxLength(250);
             });
 
-            modelBuilder.Entity<AccountInfor>(entity =>
+            modelBuilder.Entity<CustomerInfor>(entity =>
             {
-                entity.ToTable("Account_Infor");
+                entity.ToTable("Customer_Infor");
 
-                entity.HasIndex(e => e.Id, "IX_Account_Infor")
+                entity.HasIndex(e => e.Id, "IX_Customer_Infor")
                     .IsUnique();
 
                 entity.Property(e => e.Address).HasMaxLength(50);
@@ -60,7 +60,7 @@ namespace TTCSN_CustomerManage.Data
                 entity.Property(e => e.ClassCustomer).HasMaxLength(50);
 
                 entity.Property(e => e.Email).HasMaxLength(50);
-
+                entity.Property(e => e.CreationTime).HasDefaultValueSql("getutcdate()");
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -68,18 +68,14 @@ namespace TTCSN_CustomerManage.Data
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(50);
-                entity.HasOne(d => d.Account)
-                    .WithMany(p => p.AccountInfors)
-                    .HasForeignKey(d => d.AccountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Account_Infor_Account_App");
+                
             });
 
-            modelBuilder.Entity<UserRequire>(entity =>
+            modelBuilder.Entity<CustomerRequire>(entity =>
             {
-                entity.ToTable("UserRequire");
+                entity.ToTable("CustomerRequire");
 
-                entity.HasIndex(e => e.Id, "IX_UserRequire")
+                entity.HasIndex(e => e.Id, "IX_CustomerRequire")
                     .IsUnique();
 
                 entity.Property(e => e.Status).HasMaxLength(50);
@@ -89,10 +85,10 @@ namespace TTCSN_CustomerManage.Data
                     .HasMaxLength(50);
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserRequires)
-                    .HasForeignKey(d => d.UserId)
+                    .WithMany(p => p.CustomerRequires)
+                    .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserRequire_Account_Infor");
+                    .HasConstraintName("FK_CustomerRequire_Account_Infor");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,0 +1,67 @@
+<div class="card card-custom gutter-b">
+  <div class="card-body">
+    <div class="form">
+      <div class="row">
+        <div class="col-xl-6 col-sm-12">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Search</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default" placeholder="Name/PhoneNumber/Email">
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-12">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">FromAge</span>
+            <input type="number" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-12">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">ToAge</span>
+            <input type="number" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-12">
+          <button type="button" class="btn btn-outline-primary">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card card-custom gutter-b mt-1">
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <td scope="col">Stt</td>
+          <td scope="col">Name</td>
+          <td scope="col">PhoneNumber</td>
+          <td scope="col">Email</td>
+          <td scope="col">Address</td>
+          <td scope="col">DayOfBirth</td>
+          <td scope="col">Image</td>
+          <td scope="col">Option</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listCustomer">
+          <td scope="row">1</td>
+          <td>{{item.name}}</td>
+          <td>{{item.phoneNumber}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.address}}</td>
+          <td>{{item.dayOfBirth}}</td>
+          <td><img src = "{{item.imageBase64}}" alt=""></td>
+          <th>
+            <button type="button" class="btn btn-outline-secondary me-1">Edit</button>
+            <button type="button" class="btn btn-outline-danger">Delete</button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

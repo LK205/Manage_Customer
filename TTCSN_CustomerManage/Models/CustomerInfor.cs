@@ -5,23 +5,23 @@ using System.Collections.Generic;
 
 namespace TTCSN_CustomerManage.Models
 {
-    public partial class AccountInfor
+    public partial class CustomerInfor
     {
-        public AccountInfor()
+        public CustomerInfor()
         {
-            UserRequires = new HashSet<UserRequire>();
+            CustomerRequires = new HashSet<CustomerRequire>();
         }
 
         public long Id { get; set; }
-        public long AccountId { get; set; }
         public string Name { get; set; }
         public long? Age { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
         public string ClassCustomer { get; set; }
+        public DateTime DayOfBirth { get; set; }
+        public DateTime CreationTime { get; set; } = DateTime.Now;
         public string ImageBase64 { get; set; }
-        public virtual AccountApp Account { get; set; }
-        public virtual ICollection<UserRequire> UserRequires { get; set; }
+        public virtual ICollection<CustomerRequire> CustomerRequires { get; set; }
     }
 }

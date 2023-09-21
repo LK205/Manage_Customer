@@ -34,6 +34,8 @@ namespace TTCSN_CustomerManage
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnect"));
             });
 
+            services.AddCors();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -57,10 +59,14 @@ namespace TTCSN_CustomerManage
 
             app.UseAuthorization();
 
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

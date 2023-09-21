@@ -10,23 +10,39 @@ using System.Linq;
 
 namespace TTCSN_CustomerManage.Controllers
 {
-    public class UserRequireController : APIControllerBase
+    public class CustomerRequireController : APIControllerBase
     {
         private readonly ApplicationDbContext _db;
 
-        public UserRequireController(ApplicationDbContext db)
+        public CustomerRequireController(ApplicationDbContext db)
         {
             _db = db;
         }
 
         [HttpGet("GetAll")]
-        public async Task<List<UserRequireDto>> GetAll(string Status)
+        public async Task<List<CustomerRequireDto>> GetAll(string Status)
         {
-            var result = from c in _db.UserRequires.Where(p => p.Status == Status)
-                         select new UserRequireDto
+            var result = from c in _db.CustomerRequires.Where(p => string.IsNullOrWhiteSpace(Status) || p.Status == Status)
+                         select new CustomerRequireDto
                          {
                              Id = c.Id,
-                             UserId = c.UserId,
+                             CustomerId = c.CustomerId,
+                             Title = c.Title,
+                             Description = c.Description,
+                             Status = c.Status,
+                         };
+
+            return result.ToList();
+
+        }
+        [HttpGet("GetAllById")]
+        public async Task<List<CustomerRequireDto>> GetAllById(long id)
+        {
+            var result = from c in _db.CustomerRequires.Where(p => p.CustomerId == id)
+                         select new CustomerRequireDto
+                         {
+                             Id = c.Id,
+                             CustomerId = c.CustomerId,
                              Title = c.Title,
                              Description = c.Description,
                              Status = c.Status,
@@ -36,31 +52,31 @@ namespace TTCSN_CustomerManage.Controllers
 
         }
         [HttpPost("Create")]
-        public async Task Create(UserRequireDto dto)
+        public async Task Create(CustomerRequireDto dto)
         {
-            var newUserRequire = new UserRequire();
+            var newUserRequire = new CustomerRequire();
             newUserRequire.Id = dto.Id;
-            newUserRequire.UserId = dto.UserId;
+            newUserRequire.CustomerId = dto.CustomerId;
             newUserRequire.Title = dto.Title;
             newUserRequire.Description = dto.Description;
             newUserRequire.Status = dto.Status;
 
-            _db.UserRequires.Add(newUserRequire);
+            _db.CustomerRequires.Add(newUserRequire);
             _db.SaveChanges();
         }
         [HttpPut("Edit")]
-        public async Task Edit(UserRequireDto dto)
+        public async Task Edit(CustomerRequireDto dto)
         {
-            var UserRequire = _db.UserRequires.Find(dto.Id);
+            var UserRequire = _db.CustomerRequires.Find(dto.Id);
             if (UserRequire != null)
             {
                 UserRequire.Id = dto.Id;
-                UserRequire.UserId = dto.UserId;
+                UserRequire.CustomerId = dto.CustomerId;
                 UserRequire.Title = dto.Title;
                 UserRequire.Description = dto.Description;
                 UserRequire.Status = dto.Status;
 
-                _db.UserRequires.Update(UserRequire);
+                _db.CustomerRequires.Update(UserRequire);
                 _db.SaveChanges();
             }
             else
@@ -71,10 +87,10 @@ namespace TTCSN_CustomerManage.Controllers
         [HttpDelete("Delete")]
         public async Task Delete(long id)
         {
-            var check = await _db.UserRequires.FindAsync(id);
+            var check = await _db.CustomerRequires.FindAsync(id);
             if (check != null)
             {
-                _db.UserRequires.Remove(check);
+                _db.CustomerRequires.Remove(check);
                 _db.SaveChanges();
             }
             else

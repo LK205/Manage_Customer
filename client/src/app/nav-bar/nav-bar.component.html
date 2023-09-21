@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ps-2 pe-2">
+    
+      <a class="navbar-brand" routerLink='/'>Hi</a>
+      <ul class="navbar-nav me-auto" >
+        <ng-container  >
+          <li class="nav-item">
+            <a class="nav-link " routerLink='customer' routerLinkActive='active'>Customers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='require' routerLinkActive='active'>Customer Support</a>
+          </li>
+        </ng-container>
+      </ul>
+        
+      <!-- <div class="dropdown"  dropdown>
+        <img src="">
+        <a class="dropdown-toggle  text-light ms-2" style="text-decoration: none;" dropdownToggle>Wellcome</a>
+        <div class="dropdown-menu" *dropdownMenu>
+          <a class="dropdown-item" routerLink='member/edit' routerLinkActive='active'>Edit Profile</a>
+          <div class="dropdown-divider"> </div>
+          <a class="dropdown-item" >Logout</a>
+        </div>
+      </div> -->
+  
+      <form  autocomplete="off" class="d-flex">
+          
+            <input
+                name="username"
+                class="form-control me-2" 
+                type="text" 
+                placeholder="UserName....">
+  
+          
+            <input
+                name="password"
+                class="form-control me-2" 
+                type="password" 
+                placeholder="Password....">
+          <button class="btn btn-success btn-login dangnhap" >Login</button>
+      </form>
+  </nav>
