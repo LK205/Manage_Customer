@@ -21,8 +21,9 @@ namespace TTCSN_CustomerManage.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<List<CustomerInforDto>> GetAll(string request, long fromAge, long toAge = 1000)
+        public async Task<List<CustomerInforDto>> GetAll(string request, long fromAge, long toAge)
         {
+            if (toAge == 0) toAge = 10000;
             var result = from c in _db.CustomerInfors
                          where (string.IsNullOrEmpty(request) || c.Name.Contains(request) || c.PhoneNumber.Contains(request) || c.Email.Contains(request))
                                && c.Age >= fromAge

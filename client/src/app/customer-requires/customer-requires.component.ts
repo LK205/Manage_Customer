@@ -1,10 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CustomerRequire } from 'src/_models/customer_require';
+import { CustomerRequireService } from 'src/_services/customer-require.service';
 
 @Component({
   selector: 'app-customer-requires',
   templateUrl: './customer-requires.component.html',
   styleUrls: ['./customer-requires.component.css']
 })
-export class CustomerRequiresComponent {
+export class CustomerRequiresComponent implements OnInit {
+  status: string = "";
 
+  currentDate: Date = new Date();
+  listCustomerRequire: CustomerRequire[];
+  dataDetail: CustomerRequire;
+
+  constructor(private _service: CustomerRequireService) { }
+
+
+  Edit: boolean = false;
+  ngOnInit(): void {
+    this.search();
+  }
+
+  search() {
+    this._service.getAll(this.status).subscribe(data => {
+      this.listCustomerRequire = data;
+    });
+  }
+
+  deleteCusI4(id: number) {
+    if (confirm("Are you sure?")) {
+      this._service.deleteCustomerRequire(id).subscribe(res => {
+        alert("Delete Success!");
+        this.search();
+      })
+    }
+  }
+
+  editDataDetails(data?: CustomerRequire) {
+    if (data != null || data != undefined) {
+      this.dataDetail = data;
+    }
+    this.Edit = true;
+  }
+
+
+
+  closeModal() {
+    this.dataDetail = {
+      id: 0,
+      customerId: 1,
+      title: "",
+      description: "",
+      status: "Chờ xác nhận",
+      customerName: "" 
+    }
+    this.search();
+    this.Edit = false;
+  }
 }

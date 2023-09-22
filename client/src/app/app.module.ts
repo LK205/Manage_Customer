@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CustomersComponent } from './customers/customers.component';
 import { CustomerRequiresComponent } from './customer-requires/customer-requires.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CreateOrEditCustomersComponent } from './customers/create-or-edit-customers/create-or-edit-customers.component';
+import { CreateOrEditCustomerRequireComponent } from './customer-requires/create-or-edit-customer-require/create-or-edit-customer-require.component';
 
 
 @NgModule({
@@ -16,14 +19,20 @@ import { CustomerRequiresComponent } from './customer-requires/customer-requires
     NavBarComponent,
     CustomersComponent,
     CustomerRequiresComponent,
+    CreateOrEditCustomersComponent,
+    CreateOrEditCustomerRequireComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
 
+  ],
+  exports:[
+    BsDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

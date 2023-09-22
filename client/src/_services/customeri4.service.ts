@@ -19,8 +19,7 @@ export class Customeri4Service {
       _url += "fromAge=" + encodeURIComponent("" + fromAge) + "&";
     }
     if (toAge !== undefined && toAge !== null) {
-      let _str = "toAge=" + encodeURIComponent("" + toAge) + "&";
-      _url = _url.replace("toAge=1000", _str)
+      _url += "toAge=" + encodeURIComponent("" + toAge) + "&";
     }
     _url = _url.replace(/[?&]$/, "");
     return this.http.get<any>(_url);
@@ -43,6 +42,6 @@ export class Customeri4Service {
 
   deleteCustomerI4(id: number) {
     let _url = this.apiUrl + "CustomerInfor/Delete?id=" + encodeURIComponent("" + id);
-    return this.http.get<any>(_url);
+    return this.http.delete<any>(_url);
   }
 }

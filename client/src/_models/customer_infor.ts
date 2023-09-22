@@ -1,11 +1,12 @@
 export interface CustomerInfor {
     id: number;
-    name: string; Age: number;
-    phoneNumber: string;
-    email: string;
-    address: string;
-    creationTime: Date;
-    classCustomer: string;
-    imageBase64: string;
-    dayOfBirth: Date;
+    name: string | undefined; 
+    age: number | undefined;
+    phoneNumber: string | undefined;
+    email: string | undefined;
+    address: string | undefined;
+    creationTime: Date | undefined;
+    classCustomer: string | undefined;
+    imageBase64: string | undefined;
+    dayOfBirth: Date | undefined;
 }

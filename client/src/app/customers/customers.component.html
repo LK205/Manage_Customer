@@ -6,26 +6,28 @@
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Search</span>
             <input type="text" class="form-control" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default" placeholder="Name/PhoneNumber/Email">
+              aria-describedby="inputGroup-sizing-default" placeholder="Name/PhoneNumber/Email" [(ngModel)]="request">
           </div>
         </div>
-        <div class="col-xl-3 col-sm-12">
+        <div class="col-xl-3 col-sm-12 ">
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">FromAge</span>
-            <input type="number" class="form-control" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default">
+            <input type="number" [min]="0" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default" [(ngModel)]="fromAge">
           </div>
         </div>
-        <div class="col-xl-3 col-sm-12">
+        <div class="col-xl-3 col-sm-12 ">
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">ToAge</span>
-            <input type="number" class="form-control" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default">
+            <input type="number" [min]="0" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default" [(ngModel)]="toAge">
           </div>
         </div>
-
-        <div class="col-xl-3 col-sm-12">
-          <button type="button" class="btn btn-outline-primary">Search</button>
+      </div>
+      <div class="row float-sm-end" >
+        <div class="col-xl-12 col-sm-12" >
+          <button type="button" class="btn btn-outline-primary" style="margin-right: 640px;width: 250px;"
+          (click)="search()">Search</button>
         </div>
       </div>
     </div>
@@ -34,11 +36,21 @@
 
 <div class="card card-custom gutter-b mt-1">
   <div class="card-body">
-    <table class="table">
-      <thead>
+    <div class="row float-sm-end">
+      <div class="col-xl-12 col-sm-12 mb-2" >
+        <button type="button" style="width: 150px;"
+            class="btn btn-outline-primary"  
+            data-bs-toggle="modal" 
+            data-bs-target="#staticBackdrop" (click)="editDataDetails()">Add</button>
+      </div>
+    </div>
+    
+    <table class="table table-striped table-hover table-responsive">
+      <thead class="table-primary">
         <tr>
           <td scope="col">Stt</td>
           <td scope="col">Name</td>
+          <td scope="col">Age</td>
           <td scope="col">PhoneNumber</td>
           <td scope="col">Email</td>
           <td scope="col">Address</td>
@@ -48,20 +60,39 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of listCustomer">
-          <td scope="row">1</td>
+        <tr *ngFor="let item of listCustomer; let i = index" class="justify-content-center align-items-center">
+          <td scope="row">{{i + 1}}</td>
           <td>{{item.name}}</td>
+          <td>{{item.age}}</td>
           <td>{{item.phoneNumber}}</td>
           <td>{{item.email}}</td>
           <td>{{item.address}}</td>
-          <td>{{item.dayOfBirth}}</td>
-          <td><img src = "{{item.imageBase64}}" alt=""></td>
+          <td>{{item.dayOfBirth | date: 'dd/MM/yyyy' }}</td>
           <th>
-            <button type="button" class="btn btn-outline-secondary me-1">Edit</button>
-            <button type="button" class="btn btn-outline-danger">Delete</button>
+            <img src ="{{item.imageBase64 || '../assets/user.png'}}" class="img-thumbnail" style="width: 4rem;" alt="">
+          </th>
+          <th>
+            <button type="button" class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="editDataDetails(item)">Edit</button>
+            <button type="button" class="btn btn-outline-danger me-1" (click)="deleteCusI4(item.id)">Delete</button>
+            <button type="button" class="btn btn-outline-primary">Details</button>
           </th>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Customer</h1>
+        <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <app-create-or-edit-customers [dataDetail]="dataDetail" *ngIf="Edit"></app-create-or-edit-customers>
+      </div>
+    </div>
   </div>
 </div>

@@ -23,26 +23,13 @@ namespace TTCSN_CustomerManage.Controllers
         public async Task<List<CustomerRequireDto>> GetAll(string Status)
         {
             var result = from c in _db.CustomerRequires.Where(p => string.IsNullOrWhiteSpace(Status) || p.Status == Status)
+                         join q in _db.CustomerInfors on c.CustomerId equals q.Id into qJoined
+                         from q in qJoined.DefaultIfEmpty()
                          select new CustomerRequireDto
                          {
                              Id = c.Id,
                              CustomerId = c.CustomerId,
-                             Title = c.Title,
-                             Description = c.Description,
-                             Status = c.Status,
-                         };
-
-            return result.ToList();
-
-        }
-        [HttpGet("GetAllById")]
-        public async Task<List<CustomerRequireDto>> GetAllById(long id)
-        {
-            var result = from c in _db.CustomerRequires.Where(p => p.CustomerId == id)
-                         select new CustomerRequireDto
-                         {
-                             Id = c.Id,
-                             CustomerId = c.CustomerId,
+                             CustomerName = q.Name,
                              Title = c.Title,
                              Description = c.Description,
                              Status = c.Status,

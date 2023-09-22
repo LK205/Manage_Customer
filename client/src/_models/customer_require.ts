@@ -4,4 +4,5 @@ export interface CustomerRequire {
     title: string;
     description: string;
     status: string;
+    customerName: string;
 }
