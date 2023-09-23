@@ -29,7 +29,24 @@ namespace TTCSN_CustomerManage.Controllers
                          {
                              Id = c.Id,
                              CustomerId = c.CustomerId,
+                             PhoneNumber = q.PhoneNumber,
                              CustomerName = q.Name,
+                             Title = c.Title,
+                             Description = c.Description,
+                             Status = c.Status,
+                         };
+
+            return result.ToList();
+
+        }
+        [HttpGet("GetAllById")]
+        public async Task<List<CustomerRequireDto>> GetAllById(long id)
+        {
+            var result = from c in _db.CustomerRequires.Where(p =>  p.CustomerId == id)
+                         select new CustomerRequireDto
+                         {
+                             Id = c.Id,
+                             CustomerId = c.CustomerId,
                              Title = c.Title,
                              Description = c.Description,
                              Status = c.Status,

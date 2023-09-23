@@ -14,19 +14,22 @@ export class CustomersComponent implements OnInit{
   request: string | undefined;
   fromAge: number | undefined;
   toAge: number | undefined;
+  cusClass: string = "";
   listCustomer: CustomerInfor[] = [];
+  titleModal: string;
   dataDetail : CustomerInfor;
   currentDate: Date = new Date();
   constructor (private _service: Customeri4Service){}
-  
+  isCreateOrEdit: boolean = false;
+  isDetails: boolean = false;
+  cusId: number;
 
-  Edit: boolean = false;
   ngOnInit(): void {
     this.search();
   }
 
   search(){
-     this._service.getAll(this.request, this.fromAge, this.toAge).subscribe(data =>{
+     this._service.getAll(this.request, this.fromAge, this.toAge, this.cusClass).subscribe(data =>{
       this.listCustomer = data;
      }); 
   }
@@ -40,16 +43,17 @@ export class CustomersComponent implements OnInit{
     }
   }
 
-  editDataDetails(data?: CustomerInfor){
+  createOrEditCus(data?: CustomerInfor){
+    this.titleModal = !data ? "Add Customer" : "Edit Customer";
     if(data != null || data != undefined){
       this.dataDetail = data;
     }
-    this.Edit = true;
+    this.isCreateOrEdit = true;
   }
 
 
 
-  closeModal(){
+  closeModalCreateOrEdit(){
     this.dataDetail = {
       id: 0,
       name: '',
@@ -63,6 +67,15 @@ export class CustomersComponent implements OnInit{
       dayOfBirth:  this.currentDate
     }
     this.search();
-    this.Edit = false;
+    this.isCreateOrEdit = false;
+  }
+
+  showModalDetails(id: number){
+    this.cusId = id;
+    this.isDetails= true;
+  }
+
+  closeModalDetails(){
+    this.isDetails= false;
   }
 }

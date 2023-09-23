@@ -5,4 +5,5 @@ export interface CustomerRequire {
     description: string;
     status: string;
     customerName: string;
+    phoneNumber: string;
 }

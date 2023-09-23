@@ -11,6 +11,9 @@ import { CustomerRequiresComponent } from './customer-requires/customer-requires
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CreateOrEditCustomersComponent } from './customers/create-or-edit-customers/create-or-edit-customers.component';
 import { CreateOrEditCustomerRequireComponent } from './customer-requires/create-or-edit-customer-require/create-or-edit-customer-require.component';
+import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -21,6 +24,9 @@ import { CreateOrEditCustomerRequireComponent } from './customer-requires/create
     CustomerRequiresComponent,
     CreateOrEditCustomersComponent,
     CreateOrEditCustomerRequireComponent,
+    CustomerDetailsComponent,
+    HomeComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

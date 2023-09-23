@@ -21,13 +21,14 @@ namespace TTCSN_CustomerManage.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<List<CustomerInforDto>> GetAll(string request, long fromAge, long toAge)
+        public async Task<List<CustomerInforDto>> GetAll(string request, long fromAge, long toAge, string customerClass)
         {
             if (toAge == 0) toAge = 10000;
             var result = from c in _db.CustomerInfors
                          where (string.IsNullOrEmpty(request) || c.Name.Contains(request) || c.PhoneNumber.Contains(request) || c.Email.Contains(request))
                                && c.Age >= fromAge
                                && c.Age <= toAge
+                               && (string.IsNullOrEmpty(customerClass) || c.ClassCustomer.Contains(customerClass))
                          select new CustomerInforDto
                          {
                              Id = c.Id,
@@ -75,7 +76,7 @@ namespace TTCSN_CustomerManage.Controllers
             var newAccountInfor = new CustomerInfor();
             newAccountInfor.Id = dto.Id;
             newAccountInfor.Name = dto.Name;
-            newAccountInfor.Age = DateTime.Now > dto.DayOfBirth? age + 1 : age;
+            newAccountInfor.Age = DateTime.Now > dto.DayOfBirth? age : age-1;
             newAccountInfor.PhoneNumber = dto.PhoneNumber;
             newAccountInfor.Email = dto.Email;
             newAccountInfor.Address = dto.Address;
@@ -97,7 +98,7 @@ namespace TTCSN_CustomerManage.Controllers
             {
                 AccountInfor.Id = dto.Id;
                 AccountInfor.Name = dto.Name;
-                AccountInfor.Age = DateTime.Now > dto.DayOfBirth ? age + 1 : age;
+                AccountInfor.Age = DateTime.Now > dto.DayOfBirth ? age : age -1;
                 AccountInfor.PhoneNumber = dto.PhoneNumber;
                 AccountInfor.Email = dto.Email;
                 AccountInfor.Address = dto.Address;

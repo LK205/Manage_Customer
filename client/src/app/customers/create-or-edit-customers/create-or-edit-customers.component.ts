@@ -11,8 +11,18 @@ export class CreateOrEditCustomersComponent implements OnInit {
   @Input() dataDetail: CustomerInfor;
   data: CustomerInfor;
   dateNow: Date;
+  listClass: {value: string, label: string}[] = [];
   constructor(private _service: Customeri4Service) { }
   ngOnInit(): void {
+    this.listClass = [];
+    this.listClass.push({
+      value: "Normal",
+      label: "Normal"
+    })
+    this.listClass.push({
+      value: "VIP",
+      label: "VIP"
+    })
     this.reset();
     if (this.dataDetail) {
       this.data = this.dataDetail;

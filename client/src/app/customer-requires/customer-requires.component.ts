@@ -10,6 +10,7 @@ import { CustomerRequireService } from 'src/_services/customer-require.service';
 export class CustomerRequiresComponent implements OnInit {
   status: string = "";
 
+  titleModal: string;
   currentDate: Date = new Date();
   listCustomerRequire: CustomerRequire[];
   dataDetail: CustomerRequire;
@@ -17,7 +18,7 @@ export class CustomerRequiresComponent implements OnInit {
   constructor(private _service: CustomerRequireService) { }
 
 
-  Edit: boolean = false;
+  isCreateOrEdit: boolean = false;
   ngOnInit(): void {
     this.search();
   }
@@ -38,24 +39,26 @@ export class CustomerRequiresComponent implements OnInit {
   }
 
   editDataDetails(data?: CustomerRequire) {
+    this.titleModal = !data ? "Add Customer Require" : "Edit Customer Require";
     if (data != null || data != undefined) {
       this.dataDetail = data;
     }
-    this.Edit = true;
+    this.isCreateOrEdit = true;
   }
 
 
 
-  closeModal() {
+  closeModalCreateOrEdit() {
     this.dataDetail = {
       id: 0,
       customerId: 1,
       title: "",
       description: "",
       status: "Chờ xác nhận",
-      customerName: "" 
+      customerName: "",
+      phoneNumber: "" 
     }
     this.search();
-    this.Edit = false;
+    this.isCreateOrEdit = false;
   }
 }

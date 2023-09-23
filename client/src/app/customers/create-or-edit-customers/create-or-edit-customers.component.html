@@ -33,7 +33,14 @@
               aria-describedby="inputGroup-sizing-default" [(ngModel)]="data.address">
           </div>
         </div>
-
+        <div class="col-xl-12 col-sm-12">
+          <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default">ClassCustomer</span>
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="data.classCustomer">
+                  <option *ngFor="let item of listClass" value="{{item.value}}">{{item.label}}</option>
+              </select>
+          </div>
+      </div>
         <div class="col-xl-12 col-sm-12">
           <div class="input-group mb-3">
             <span style="min-width: 100px;" class="input-group-text" id="inputGroup-sizing-default">BirthDay</span>

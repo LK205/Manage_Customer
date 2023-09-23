@@ -10,7 +10,7 @@ export class Customeri4Service {
   readonly apiUrl = "https://localhost:44391/api/";
   constructor(private http: HttpClient) { }
 
-  getAll(request: string | null | undefined, fromAge: number | null | undefined, toAge: number | null | undefined): Observable<any[]> {
+  getAll(request: string | null | undefined, fromAge: number | null | undefined, toAge: number | null | undefined, customerClass: string | null | undefined): Observable<any[]> {
     let _url = this.apiUrl + "CustomerInfor/GetAll?";
     if (request !== undefined && request !== null) {
       _url += "request=" + encodeURIComponent("" + request) + "&";
@@ -21,12 +21,15 @@ export class Customeri4Service {
     if (toAge !== undefined && toAge !== null) {
       _url += "toAge=" + encodeURIComponent("" + toAge) + "&";
     }
+    if (customerClass !== undefined && customerClass !== null) {
+      _url += "customerClass=" + encodeURIComponent("" + customerClass) + "&";
+    }
     _url = _url.replace(/[?&]$/, "");
     return this.http.get<any>(_url);
   }
 
   getById(id: number): Observable<any> {
-    let _url = this.apiUrl + "CustomerInfor/GetAll?id=" + encodeURIComponent("" + id);
+    let _url = this.apiUrl + "CustomerInfor/GetById?id=" + encodeURIComponent("" + id);
     return this.http.get<any>(_url);
   }
 

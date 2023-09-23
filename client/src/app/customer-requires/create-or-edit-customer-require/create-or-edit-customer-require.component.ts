@@ -17,7 +17,7 @@ export class CreateOrEditCustomerRequireComponent implements OnInit {
   ngOnInit(): void {
     this.list = [];
     this.listStatus = [];
-    this._serviceCus.getAll('',0,1000).subscribe(res =>{
+    this._serviceCus.getAll("",0,1000,"").subscribe(res =>{
       res.forEach( r => {
         this.list.push({
           label: r.name,
@@ -74,7 +74,8 @@ export class CreateOrEditCustomerRequireComponent implements OnInit {
       title: "",
       description: "",
       status: "Chờ xác nhận",
-      customerName: ""
+      customerName: "",
+      phoneNumber: ""
     }
   }
 

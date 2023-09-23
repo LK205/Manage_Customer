@@ -1,0 +1,26 @@
+
+
+<div class="card card-custom gutter-b">
+    <div class="card-body">
+        <div class="form">
+            <table class="table table-striped table-hover table-responsive">
+                <thead class="table-primary">
+                  <tr>
+                    <td scope="col">No.</td>
+                    <td scope="col">Title</td>
+                    <td scope="col">Description</td>
+                    <td scope="col">Status</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of cusRequireData; let i = index" class="justify-content-center align-items-center">
+                    <td scope="row">{{i + 1}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.status}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
