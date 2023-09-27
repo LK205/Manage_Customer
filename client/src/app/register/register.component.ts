@@ -46,6 +46,9 @@ export class RegisterComponent implements OnInit {
     }
     this._service.createAccount(this.dataRegister).subscribe(res =>{
       alert("Create account success!")
+    },
+    error =>{
+      alert("Email was used!")
     })
   }
 }

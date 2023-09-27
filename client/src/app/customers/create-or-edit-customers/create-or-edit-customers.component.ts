@@ -63,6 +63,9 @@ export class CreateOrEditCustomersComponent implements OnInit {
       this._service.editCustomerI4(data).subscribe(res => {
         alert("Update Success!");
         this.dataDetail = null;
+      },
+      error =>{
+        alert("Email or PhoneNumber was used!")
       })
     }
   }
