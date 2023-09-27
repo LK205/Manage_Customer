@@ -44,6 +44,10 @@ namespace TTCSN_CustomerManage.Data
                 entity.Property(e => e.UserName)
                     .IsRequired()
                     .HasMaxLength(250);
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(250);
             });
 
             modelBuilder.Entity<CustomerInfor>(entity =>

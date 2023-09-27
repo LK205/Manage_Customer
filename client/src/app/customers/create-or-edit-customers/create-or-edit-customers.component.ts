@@ -12,6 +12,10 @@ export class CreateOrEditCustomersComponent implements OnInit {
   data: CustomerInfor;
   dateNow: Date;
   listClass: {value: string, label: string}[] = [];
+  regEmail = /^\w+@[a-zA-Z]+\.com$/i;
+  regPhoneNumber = /^[0 || +84]+(?=.*[0-9]).{9}$/;;
+
+
   constructor(private _service: Customeri4Service) { }
   ngOnInit(): void {
     this.listClass = [];
@@ -38,7 +42,17 @@ export class CreateOrEditCustomersComponent implements OnInit {
       alert("The email or phone number field cannot be left blank")
       return;
     }
-    
+    if (!this.regEmail.test(data.email)) {
+      alert("The email field is not valid!")
+      return;
+    }
+    if (!this.regPhoneNumber.test(data.phoneNumber)) {
+      alert("The phone number field is not valid!")
+      return;
+    }
+    if (data.classCustomer == null || data.classCustomer == '') {
+      data.classCustomer = 'Normal';
+    }
     if (data.id == 0) {
       this._service.createCustomerI4(data).subscribe(res => {
         alert("Create Success!");

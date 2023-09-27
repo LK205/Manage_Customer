@@ -14,7 +14,7 @@ import { CreateOrEditCustomerRequireComponent } from './customer-requires/create
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -35,6 +35,7 @@ import { RegisterComponent } from './register/register.component';
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
 
   ],
   exports:[

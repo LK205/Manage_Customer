@@ -10,20 +10,18 @@ export class AccountService {
   readonly apiUrl = "https://localhost:44391/api/";
   constructor(private http: HttpClient) { } 
 
-  getAccount(userName: string, password: string):Observable<any>{
-    let _url = this.apiUrl + "Account/CheckAccount?";
-    if(userName !== undefined && userName !== null){
-      _url += "UserName=" + encodeURIComponent("" + userName) + "&";
-    }
-    if(password !== undefined && password !== null){
-      _url += "Password=" + encodeURIComponent("" + password) + "&";
-    }
-    _url = _url.replace(/[?&]$/,"");
+  getAccountById(id: number):Observable<any>{
+    let _url = this.apiUrl + "Account/GetById?id=" + encodeURIComponent("" + id)
     return this.http.get<any>(_url);
   }
   
   createAccount(val: Account){
     let _url = this.apiUrl + "Account/Create";
     return this.http.post(_url, val);
+  }
+
+  checkAccount(email: string, password : string){
+    let _url = this.apiUrl + "Account/CheckAccount?Email=" + encodeURIComponent("" + email) + "&Password=" + encodeURIComponent("" + password);
+    return this.http.get<any>(_url); 
   }
 }

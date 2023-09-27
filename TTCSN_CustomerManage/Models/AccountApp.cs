@@ -10,6 +10,7 @@ namespace TTCSN_CustomerManage.Models
 
         public long Id { get; set; }
         public string UserName { get; set; }
+        public string Email { get; set; }
         public string PassWord { get; set; }
         public long AccountPermissions { get; set; }
 

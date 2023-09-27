@@ -29,7 +29,8 @@ namespace TTCSN_CustomerManage.Controllers
                              Id = c.Id,
                              AccountPermissions = c.AccountPermissions,
                              PassWord = c.PassWord,
-                             UserName = c.UserName
+                             UserName = c.UserName,
+                             Email = c.Email,
                          };
 
             return result.ToList();
@@ -51,16 +52,17 @@ namespace TTCSN_CustomerManage.Controllers
                     Id = check.Id,
                     AccountPermissions = check.AccountPermissions,
                     PassWord = check.PassWord,
-                    UserName = check.UserName
+                    UserName = check.UserName,
+                    Email = check.Email,
                 };
                 return result;
             }
 
         }
         [HttpGet("CheckAccount")]
-        public async Task<long> CheckAccount(string UserName, string Password)
+        public async Task<long> CheckAccount(string Email, string Password)
         {
-            var result = await _db.AccountApps.FirstOrDefaultAsync(p => p.UserName == UserName && p.PassWord == Password);
+            var result = await _db.AccountApps.FirstOrDefaultAsync(p => p.Email == Email && p.PassWord == Password);
             if (result == null)
             {
                 return 0;
@@ -77,6 +79,7 @@ namespace TTCSN_CustomerManage.Controllers
             newAccount.UserName = dto.UserName;
             newAccount.AccountPermissions = dto.AccountPermissions;
             newAccount.PassWord = dto.PassWord;
+            newAccount.Email = dto.Email;
 
             _db.AccountApps.Add(newAccount);
             _db.SaveChanges();
@@ -91,6 +94,7 @@ namespace TTCSN_CustomerManage.Controllers
                     newAccount.UserName = dto.UserName;
                     newAccount.AccountPermissions = dto.AccountPermissions;
                     newAccount.PassWord = dto.PassWord;
+                    newAccount.Email = dto.Email;
                     _db.AccountApps.Update(newAccount);
                     _db.SaveChanges();
                 }
