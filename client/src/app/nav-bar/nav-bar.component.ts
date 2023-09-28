@@ -12,7 +12,7 @@ export class NavBarComponent implements OnInit {
   email: string = "";
   password: string = "";
   dataAccount: Account;
-  isLogin: boolean = true;
+  isLogin: boolean = false;
   constructor(private _service: AccountService, private router: Router,) {
 
   }
@@ -25,7 +25,7 @@ export class NavBarComponent implements OnInit {
       if (res != 0) {
         this._service.getAccountById(res).subscribe(result => {
           this.dataAccount = result;
-          this.changeLogin();
+          this.isLogin = !this.isLogin;
           this.router.navigateByUrl('customer');
         })
       }
@@ -33,8 +33,10 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  changeLogin(){
+  logout(){
     this.isLogin = !this.isLogin;
+    this.router.navigateByUrl('/');
+
   }
 
 
