@@ -57,6 +57,7 @@
             <th>
               <button type="button" class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#modalCreateOrEdit" (click)="editDataDetails(item)">Edit</button>
               <button type="button" class="btn btn-outline-danger me-1" (click)="deleteCusI4(item.id)">Delete</button>
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#detailsCusI4" (click)="showModalDetails(item.customerId)">Details</button>
             </th>
           </tr>
         </tbody>
@@ -79,3 +80,16 @@
     </div>
   </div>
   
+  <div class="modal fade" id="detailsCusI4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 1435px; margin-left: -464px;">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="detailsCusI4">Customer Details</h1>
+          <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModalDetails()"></button>
+        </div>
+        <div class="modal-body">
+          <app-customer-details [idCus]="cusId"  *ngIf="isDetails"></app-customer-details>
+        </div>
+      </div>
+    </div>
+  </div>

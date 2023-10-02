@@ -14,7 +14,9 @@ export class CustomerRequiresComponent implements OnInit {
   currentDate: Date = new Date();
   listCustomerRequire: CustomerRequire[];
   dataDetail: CustomerRequire;
-
+  isDetails: boolean = false;
+  cusId: number;
+  
   constructor(private _service: CustomerRequireService) { }
 
 
@@ -60,5 +62,13 @@ export class CustomerRequiresComponent implements OnInit {
     }
     this.search();
     this.isCreateOrEdit = false;
+  }
+  showModalDetails(id: number){
+    this.cusId = id;
+    this.isDetails= true;
+  }
+
+  closeModalDetails(){
+    this.isDetails= false;
   }
 }

@@ -1,18 +1,10 @@
 <div class="container mt-5" >
-    <div *ngIf="!register" style="text-align: center; color: whitesmoke; margin-top: 200px;">
+    <div  style="text-align: center; color: whitesmoke; margin-top: 200px;">
         <h1>Manage users with ease and efficiency</h1>
         <p class="lead">Provide a comprehensive user management solution that manages users in the most efficient way possible!</p>
         <div class="text-center">
             <button (click)="changeRegister()" class="btn btn-primary btn-lg me-2">Register</button>
             <button class="btn btn-info btn-lg">Learn more</button>
-        </div>
-    </div>
-
-    <div *ngIf="register" class="container">
-        <div class="row justify-content-center" style="text-align: center; color: whitesmoke; margin-top: 200px;">
-            <div class="col-4">
-                <app-register></app-register>
-            </div>
         </div>
     </div>
 </div>
