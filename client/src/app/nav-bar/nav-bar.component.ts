@@ -25,7 +25,7 @@ export class NavBarComponent implements OnInit {
       if (res != 0) {
         this._service.getAccountById(res).subscribe(result => {
           this.dataAccount = result;
-          this.isLogin = !this.isLogin;
+          this.isLogin = true;
           this.router.navigateByUrl('customer');
         })
       }
@@ -34,7 +34,7 @@ export class NavBarComponent implements OnInit {
   }
 
   logout(){
-    this.isLogin = !this.isLogin;
+    this.isLogin = false;
     this.router.navigateByUrl('/');
 
   }

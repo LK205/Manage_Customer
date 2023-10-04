@@ -6245,9 +6245,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Manage_Customer\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj",
-      "projectName": "TTCSN_CustomerManage",
-      "projectPath": "D:\\Manage_Customer\\TTCSN_CustomerManage\\TTCSN_CustomerManage.csproj",
+      "projectUniqueName": "D:\\Manage_Customer\\TTCSN_CustomerManage\\API.csproj",
+      "projectName": "API",
+      "projectPath": "D:\\Manage_Customer\\TTCSN_CustomerManage\\API.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
       "outputPath": "D:\\Manage_Customer\\TTCSN_CustomerManage\\obj\\",
       "projectStyle": "PackageReference",

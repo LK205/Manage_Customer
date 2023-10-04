@@ -15,12 +15,7 @@ export class RegisterComponent implements OnInit {
   constructor(private _service: AccountService) {
   }
   ngOnInit(): void {
-    this.dataRegister = {
-      id: 0,
-      userName: "",
-      passWord: "",
-      email: ""
-    }
+    this.reset();
   }
 
   register() {
@@ -44,11 +39,25 @@ export class RegisterComponent implements OnInit {
       alert("You need to agree to all statements");
       return;
     }
+    if(!this.regEmail.test(this.dataRegister.email)){
+      alert("The email is not valid!");
+      return;
+    }
     this._service.createAccount(this.dataRegister).subscribe(res =>{
-      alert("Create account success!")
+      alert("Create account success!");
+      this.reset();
     },
     error =>{
       alert("Email was used!")
     })
+  }
+
+  reset(){
+    this.dataRegister = {
+      id: 0,
+      userName: "",
+      passWord: "",
+      email: ""
+    }
   }
 }
