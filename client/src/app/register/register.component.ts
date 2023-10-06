@@ -59,5 +59,7 @@ export class RegisterComponent implements OnInit {
       passWord: "",
       email: ""
     }
+    this.checkBox = false;
+    this.confirmPassword = "";
   }
 }

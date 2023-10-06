@@ -9,11 +9,9 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit{
 
   constructor(private router: Router){
-    
   }
 
   ngOnInit(): void {
-    
   }
 
 
@@ -21,6 +19,5 @@ export class HomeComponent implements OnInit{
 
   changeRegister(){
     this.router.navigateByUrl('register');
-
   }
 }
