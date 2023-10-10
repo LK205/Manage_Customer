@@ -53,10 +53,14 @@ export class CreateOrEditCustomersComponent implements OnInit {
     if (data.classCustomer == null || data.classCustomer == '') {
       data.classCustomer = 'Normal';
     }
+    console.log(data);
     if (data.id == 0) {
       this._service.createCustomerI4(data).subscribe(res => {
         alert("Create Success!");
         this.dataDetail = null;
+      },
+      error =>{
+        alert("Email or PhoneNumber was used!")
       });
     }
     else {
