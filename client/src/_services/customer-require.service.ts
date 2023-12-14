@@ -10,32 +10,56 @@ export class CustomerRequireService {
   readonly apiUrl = "https://localhost:44391/api/";
   constructor(private http: HttpClient) { }
 
-  getAll(status: string | null | undefined):Observable<any[]>{
+  getAll(request: string, status: string, pageSize: number, pageNumber: number) : Observable<{result: any[], total: any[] }>{
     let _url = this.apiUrl + "CustomerRequire/GetAll?";
-    if(status !== undefined && status !== null){
-      _url += "Status=" + encodeURIComponent("" + status) + "&";
+    if (request !== null || request !== undefined) {
+      _url += "request=" + encodeURIComponent("" + request) + "&";
+    }
+    if (status !== null || status !== undefined) {
+      _url += "status=" + encodeURIComponent("" + status) + "&";
+    }
+    if (pageSize !== null || pageSize !== undefined) {
+      _url += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+    }
+    if (pageNumber !== null || pageNumber !== undefined) {
+      _url += "pageNumber=" + encodeURIComponent("" + pageNumber) + "&";
     }
     _url = _url.replace(/[?&]$/, "");
     return this.http.get<any>(_url);
   }
-  
-  getAllById(id: number):Observable<any[]>{
-    let _url = this.apiUrl + "CustomerRequire/GetAllById?id=" + encodeURIComponent("" + id);
+
+  getAllById(id: number,request: string, status: string, pageSize: number, pageNumber: number) : Observable<{result: any[], total: any[] }>{
+    let _url = this.apiUrl + "CustomerRequire/GetAllById?";
+    if (id !== null || id !== undefined) {
+      _url += "id=" + encodeURIComponent("" + id) + "&";
+    }
+    if (request !== null || request !== undefined) {
+      _url += "request=" + encodeURIComponent("" + request) + "&";
+    }
+    if (status !== null || status !== undefined) {
+      _url += "status=" + encodeURIComponent("" + status) + "&";
+    }
+    if (pageSize !== null || pageSize !== undefined) {
+      _url += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+    }
+    if (pageNumber !== null || pageNumber !== undefined) {
+      _url += "pageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+    }
+    _url = _url.replace(/[?&]$/, "");
     return this.http.get<any>(_url);
   }
 
-  createCustomerRequire(val: CustomerRequire){
-    let _url = this.apiUrl + "CustomerRequire/Create";
-    return this.http.post(_url, val);
+  createOrUpdate(val: any){
+    let url = this.apiUrl + "CustomerRequire/CreatOrUpdate";
+    return this.http.post(url, val);
   }
 
-  editCustomerRequire(val: CustomerRequire){
-    let _url = this.apiUrl + "CustomerRequire/Edit";
-    return this.http.put(_url, val);
+  delete(id: number){
+    return this.http.delete(this.apiUrl + "CustomerRequire/Delete?Id=" + id);
   }
 
-  deleteCustomerRequire(id: number){
-    let _url = this.apiUrl + "CustomerRequire/Delete?id=" + encodeURIComponent("" + id);
-    return this.http.delete(_url);
+  getById(id: number): Observable<any>{
+    let url = this.apiUrl + "CustomerRequire/GetById?id=" + id;
+    return this.http.get<any>(url);
   }
 }

@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using API.Dto;
+using API.Repository;
+using API.Services;
+using Microsoft.AspNetCore.Mvc;
+using RTCWeb.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using TTCSN_CustomerManage.Data;
-using TTCSN_CustomerManage.Dto;
 using TTCSN_CustomerManage.Models;
 
 namespace TTCSN_CustomerManage.Controllers
@@ -14,108 +17,102 @@ namespace TTCSN_CustomerManage.Controllers
     public class AccountController : APIControllerBase
     {
         private readonly ApplicationDbContext _db;
-
+        private AccountRepo _repo = new AccountRepo();
         public AccountController(ApplicationDbContext db)
         {
             _db = db;
         }
 
+        [HttpGet("Login")]
+        public async Task<Account> Login(string email, string password)
+        {
+            Account account = _db.Accounts.FirstOrDefault(p=> p.Email == email && p.PassWord == HASH.ToSHA256(password ?? "") && p.IsActive);
+            return account ?? null;
+        }
+
+        [HttpPost("Register")]
+        public async Task<bool> Register(Account data)
+        {
+            bool check = _repo.GetAll().Any(p=> p.Email == data.Email && p.Id != data.Id);
+            //Bị trùng email!
+            if (check) return false;
+
+            data.CreationTime = DateTime.Now;
+            data.Role = 0;
+            data.PassWord = HASH.ToSHA256(data.PassWord ?? "");
+            data.IsActive = true;
+
+            // 0 la khach hang
+            // 1 Admin
+            await _repo.CreateAsync(data);
+            return true;
+        }
+
+        [HttpPost("UpdateAccount")]
+        public async Task<bool> UpdateAccount(Account data)
+        {
+            Account newAccount = _repo.GetByID(data.Id);
+            newAccount.PhoneNumber = data.PhoneNumber;
+            newAccount.FirstName = data.FirstName;
+            newAccount.LastName = data.LastName;
+            newAccount.DayOfBirth = data.DayOfBirth;
+            newAccount.ClassCustomer = data.ClassCustomer;
+            newAccount.Role = data.Role;
+            newAccount.DepartmentId = data.DepartmentId;
+            newAccount.Avatar = data.Avatar;
+            await _repo.UpdateAsync(newAccount);
+
+            return true;
+        }
+
+        [HttpGet("ChangeActive")]
+        public async Task<bool> ChangeActive(long id)
+        {
+            Account newAccount = _repo.GetByID(id);
+            newAccount.IsActive = !newAccount.IsActive;
+            await _repo.UpdateAsync(newAccount);
+
+            return true;
+        }
+
+
+        [HttpPut("ChangeRole")]
+        public async Task<bool> ChangeRole(long id, long roleValue)
+        {
+            Account account = _repo.GetByID(id);
+            account.Role = roleValue;
+            await _repo.UpdateAsync(account);
+            return true;
+        }
+        [HttpGet("ChangePassword")]
+        public async Task<bool> ChangePassword(long id, string oldPassword, string newPassword)
+        {
+            Account account = _repo.GetByID(id);
+            bool check = (account.PassWord == HASH.ToSHA256(oldPassword));
+            if (!check) return false;
+
+            account.PassWord = HASH.ToSHA256(newPassword);
+            await _repo.UpdateAsync(account);
+            return true;
+        }
+
         [HttpGet("GetAll")]
-        public async Task<List<AccountAppDto>> GetAll()
+        public async Task<object> GetAll(string request = "", int pageSize = 10, int pageNumber = 1)
         {
-            var result = from c in _db.AccountApps
-                         select new AccountAppDto
-                        {
-                             Id = c.Id,
-                             AccountPermissions = c.AccountPermissions,
-                             PassWord = c.PassWord,
-                             UserName = c.UserName,
-                             Email = c.Email,
-                         };
+            List<Account> result = SQLHelper<Account>.ProcedureToList("spGetAllAccount",
+                new string[] { "@Request", "@PageSize", "@PageNumber" },
+                new object[] { request ?? "" , pageSize, pageNumber });
+            List<TotalResult> total = SQLHelper<TotalResult>.ProcedureToList("spGetAllAccountTotal",
+                new string[] { "@Request"},
+                new object[] { request ?? "" });
 
-            return result.ToList();
-
+            return new { result, total };
         }
+
         [HttpGet("GetById")]
-        public async Task<AccountAppDto> GetAllById(long id)
+        public async Task<Account> GetById(long Id)
         {
-            var check = await _db.AccountApps.FirstOrDefaultAsync(p=> p.Id == id);
-
-            if (check == null)
-            {
-                throw new Exception("Id does not exits");
-            }
-            else
-            {
-                var result = new AccountAppDto
-                {
-                    Id = check.Id,
-                    AccountPermissions = check.AccountPermissions,
-                    PassWord = check.PassWord,
-                    UserName = check.UserName,
-                    Email = check.Email,
-                };
-                return result;
-            }
-
-        }
-        [HttpGet("CheckAccount")]
-        public async Task<long> CheckAccount(string Email, string Password)
-        {
-            var result = await _db.AccountApps.FirstOrDefaultAsync(p => p.Email == Email && p.PassWord == Password);
-            if (result == null)
-            {
-                return 0;
-            }
-            else return result.Id;
-
-        }
-        [HttpPost("Create")]
-        public async Task Create(AccountAppDto dto)
-        {
-            var newAccount = new AccountApp();
-            
-            newAccount.Id = dto.Id;
-            newAccount.UserName = dto.UserName;
-            newAccount.AccountPermissions = dto.AccountPermissions;
-            newAccount.PassWord = dto.PassWord;
-            newAccount.Email = dto.Email;
-
-            _db.AccountApps.Add(newAccount);
-            _db.SaveChanges();
-        }
-        [HttpPut("Edit")]
-        public async Task Edit(AccountAppDto dto)
-        {
-                var newAccount = _db.AccountApps.Find(dto.Id);
-                if (newAccount != null)
-                {
-                    newAccount.Id = dto.Id;
-                    newAccount.UserName = dto.UserName;
-                    newAccount.AccountPermissions = dto.AccountPermissions;
-                    newAccount.PassWord = dto.PassWord;
-                    newAccount.Email = dto.Email;
-                    _db.AccountApps.Update(newAccount);
-                    _db.SaveChanges();
-                }
-                else
-                {
-                    throw new Exception("Id does not exist!");
-                } 
-        }
-        [HttpDelete("Delete")]
-        public async Task Delete(long id)
-        {
-            var check = await _db.AccountApps.FindAsync(id);
-            if(check != null)
-            {
-                _db.AccountApps.Remove(check);
-                _db.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("Id does not exist!");
-            }
+            return _repo.GetByID(Id);
         }
     }
 }

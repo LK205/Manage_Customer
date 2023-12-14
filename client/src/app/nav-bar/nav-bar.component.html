@@ -1,37 +1,81 @@
-<div class="container">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ps-2 pe-2" style="padding: 0;">
-  
-    <a class="navbar-brand" routerLink='/'>
-      <img src="../../assets/logoWhite.svg" alt="" style="width: 40px; height: 40px;">
+<header id="header" class="header fixed-top d-flex align-items-center">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+
+    <a routerLink="/" class="logo d-flex align-items-center me-auto me-xl-0">\
+      <h1>Append</h1>
+      <span>.</span>
     </a>
-    <ul class="navbar-nav me-auto" *ngIf="isLogin">
-      <ng-container>
-        <li class="nav-item">
-          <a class="nav-link " routerLink='customer' routerLinkActive='active'>Customers</a>
+
+    <!-- Nav Menu -->
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a routerLink="/" class="active">Trang chủ</a></li>
+        <li><a routerLink="/">Về chúng tôi</a></li>
+        <li class="dropdown has-dropdown"><a routerLink="/"><span>Dịch vụ</span> <i class="bi bi-chevron-down"></i></a>
+          <ul class="dd-box-shadow">
+            <li><a routerLink="" (click)="test()">Phản hồi</a></li>
+            <li><a routerLink="ManageCustomerRequire" *ngIf="dataAccount.role == 1">Quản lý yêu cầu hỗ trợ</a></li>
+            <li><a routerLink="ManageAccount" *ngIf="dataAccount.role == 1">Quản lý người dùng</a></li>
+
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink='require' routerLinkActive='active'>Customer Support</a>
-        </li>
-      </ng-container>
-    </ul>
-    <div class="dropdown"  dropdown *ngIf="isLogin" style="margin-right: 90px;">
-      <img src="../../assets/user.png" alt="" style="width: 40px; height: 40px; border-radius: 50%;"> 
-      <a class="dropdown-toggle  text-light ms-2" style="text-decoration: none;" dropdownToggle>{{dataAccount.userName | titlecase}}</a>
-      <div class="dropdown-menu" *dropdownMenu>
-        <a class="dropdown-item" >Edit Account</a>
-        <div class="dropdown-divider"> </div>
-        <a class="dropdown-item" (click)="logout()">Logout</a>
-      </div>
+        <li><a routerLink="CustomerSupport">Liên hệ</a></li>
+      </ul>
+
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav><!-- End Nav Menu -->
+
+    <div class="dropdown d-flex justify-content-end align-items-center" style="max-width: 20%;" dropdown
+      *ngIf="isLogin">
+      <img src="{{dataAccount.avatar ?? '../../assets/user.png'}}" alt="" style="width: 15%; border-radius: 40%;">
+      <a class="dropdown-toggle  text-dark   ms-2" style="text-decoration: none;" data-bs-toggle="dropdown"
+        aria-expanded="false">{{ dataAccount.firstName | titlecase}} {{dataAccount.lastName | titlecase}}</a>
+
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" routerLink="Account">Tài khoản</a></li>
+        <li><a class="dropdown-item" routerLink="" (click)="logout()">Đăng xuất</a></li>
+      </ul>
+
     </div>
-  
-    
-    <form *ngIf="!isLogin" autocomplete="off" class="d-flex" style="margin-left: 936px;">
-  
-      <input name="Email" class="form-control me-2" type="text" placeholder="Email...." [(ngModel)]="email">
-  
-  
-      <input name="password" class="form-control me-2" type="password" placeholder="Password...." [(ngModel)]="password">
-      <button class="btn btn-success btn-login dangnhap" (click)="login()">Login</button>
-    </form>
-  </nav>
+
+    <button class="btn btn-getstarted" (click)="reset()" *ngIf="!isLogin">Đăng nhập</button>
+
+  </div>
+</header>
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Đăng nhập</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form>
+        <div class="modal-body">
+
+          <div class="row gy-2">
+            <div class="col-12 ">
+              <label for="Email" class="form-label">Email</label>
+              <input type="text" class="form-control" id="Email" placeholder="Nhập Email" name="email" [(ngModel)]="email" autocomplete="off">
+            </div>
+            <div class="col-12">
+              <label for="PassWord" class="form-label">Mật khẩu</label>
+              <input type="password" class="form-control" id="PassWord" placeholder="Nhập mật khẩu" name="password"
+                [(ngModel)]="password" autocomplete="off">
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer p-0">
+          <div class="col-12 text-center">
+
+            <button type="submit" class="btn btn-dark btn-lg" (click)="login()">Đăng nhập</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
 </div>

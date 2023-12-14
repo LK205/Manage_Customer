@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Account } from 'src/_models/account';
 import { AccountService } from 'src/_services/account.service';
 
 @Component({
@@ -8,58 +7,92 @@ import { AccountService } from 'src/_services/account.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  dataAccount: any = {
+    id: 0,
+    email: "",
+    phoneNumber: "",
+    password: "",
+    creationTime: new Date,
+    role: 0,
+    firstName: "",
+    lastName: "",
+    dayOfBirth: new Date,
+    classCustomer: 'Đồng',
+    departmentId: 0,
+    avatar: "",
+    isActive: true
+  };
   checkBox: boolean = false;
-  dataRegister: Account;
-  confirmPassword: string;
   regEmail = /^\w+@[a-zA-Z]+\.com$/i;
-  constructor(private _service: AccountService) {
-  }
+  confirmPass: string = "";
+
+  constructor(private _serviceAccount: AccountService) { }
+
   ngOnInit(): void {
-    this.reset();
   }
+
 
   register() {
-    if(this.dataRegister.userName == ""){
-      alert("The user name field cannot be left blank")
+    if (this.dataAccount.firstName.trim === "") {
+      alert("Trường Tên đệm không được để trống!");
       return;
     }
-    if(this.dataRegister.email == ""){
-      alert("The user name field cannot be left blank")
+    if (this.dataAccount.lastName.trim === "") {
+      alert("Trường Tên không được để trống!");
       return;
     }
-    if(this.dataRegister.passWord == ""){
-      alert("The user name field cannot be left blank")
+    if (this.dataAccount.email.trim === "") {
+      alert("Trường Email không được để trống!");
       return;
     }
-    if (this.confirmPassword !== this.dataRegister.passWord) {
-      alert("The password is not a match!");
+    if (this.dataAccount.phoneNumber.trim === "") {
+      alert("Trường số điện thoại không được để trống!");
       return;
     }
-    if(!this.checkBox){
-      alert("You need to agree to all statements");
+    if (this.dataAccount.password.trim === "") {
+      alert("Mật khẩu không hợp lệ không được để trống!");
       return;
     }
-    if(!this.regEmail.test(this.dataRegister.email)){
-      alert("The email is not valid!");
+    if (!this.regEmail.test(this.dataAccount.email)) {
+      alert("Email không hợp lệ!!!");
       return;
     }
-    this._service.createAccount(this.dataRegister).subscribe(res =>{
-      alert("Create account success!");
+    if (!this.checkBox) {
+      alert("Đồng ý điều khoản của chúng tôi!");
+      return;
+    }
+    if (this.confirmPass !== this.dataAccount.password) {
+      alert("Mật xác thực chưa chính xác!");
+      return;
+    }
+
+    this._serviceAccount.register(this.dataAccount).subscribe(res => {
       this.reset();
+      alert("Đăng ký thành công!");
     },
-    error =>{
-      alert("Email was used!")
-    })
+      error => {
+        alert("Email đã được sử dụng!")
+      });
+
+
   }
 
-  reset(){
-    this.dataRegister = {
+  reset() {
+    this.dataAccount = {
       id: 0,
-      userName: "",
-      passWord: "",
-      email: ""
-    }
-    this.checkBox = false;
-    this.confirmPassword = "";
+    email: "",
+    phoneNumber: "",
+    password: "",
+    creationTime: new Date,
+    role: 0,
+    firstName: "",
+    lastName: "",
+    dayOfBirth: new Date,
+    classCustomer: 'Đồng',
+    departmentId: 0,
+    avatar: "",
+    isActive: true
+    };
+    this.confirmPass = "";
   }
 }

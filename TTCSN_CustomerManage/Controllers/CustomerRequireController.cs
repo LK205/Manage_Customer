@@ -1,106 +1,90 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using API.Dto;
+using API.Repository;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop.Infrastructure;
+using RTCWeb.Common;
 using System;
-using TTCSN_CustomerManage.Data;
-using TTCSN_CustomerManage.Dto;
-using TTCSN_CustomerManage.Models;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using TTCSN_CustomerManage.Controllers;
+using TTCSN_CustomerManage.Data;
+using TTCSN_CustomerManage.Models;
 
-namespace TTCSN_CustomerManage.Controllers
+namespace API.Controllers
 {
     public class CustomerRequireController : APIControllerBase
     {
         private readonly ApplicationDbContext _db;
-
+        private CustomerRequireRepo _repo = new CustomerRequireRepo();
         public CustomerRequireController(ApplicationDbContext db)
         {
             _db = db;
         }
 
         [HttpGet("GetAll")]
-        public async Task<List<CustomerRequireDto>> GetAll(string Status)
+        public async Task<object> GetAll(string request ="", string status ="", int pageSize=10, int pageNumber = 1)
         {
-            var result = from c in _db.CustomerRequires.Where(p => string.IsNullOrWhiteSpace(Status) || p.Status == Status)
-                         join q in _db.CustomerInfors on c.CustomerId equals q.Id into qJoined
-                         from q in qJoined.DefaultIfEmpty()
-                         select new CustomerRequireDto
-                         {
-                             Id = c.Id,
-                             CustomerId = c.CustomerId,
-                             PhoneNumber = q.PhoneNumber,
-                             CustomerName = q.Name,
-                             Title = c.Title,
-                             Description = c.Description,
-                             Status = c.Status,
-                         };
+            List<CustomerRequireDto> result = SQLHelper<CustomerRequireDto>.ProcedureToList("spGetAllRequireByStaff",
+                new string[] { "@Request", "@Status", "@PageSize", "@PageNumber" },
+                new object[] { request ?? "" , status ?? "", pageSize, pageNumber });
+            List<TotalResult> total = SQLHelper<TotalResult>.ProcedureToList("spGetAllRequireByStaffTotal",
+                new string[] { "@Request", "@Status" },
+                new object[] { request ?? "", status ?? "" });
 
-            return result.ToList();
-
+            return new { result, total };
         }
+
         [HttpGet("GetAllById")]
-        public async Task<List<CustomerRequireDto>> GetAllById(long id)
+        public async Task<object> GetAllById(long id, string request="", string status = "", int pageSize = 10, int pageNumber = 1)
         {
-            var result = from c in _db.CustomerRequires.Where(p =>  p.CustomerId == id)
-                         select new CustomerRequireDto
+            List<CustomerRequireDto> result = SQLHelper<CustomerRequireDto>.ProcedureToList("spGetAllRequireByCus",
+                new string[] { "@Request", "@Status", "@PageSize", "@PageNumber", "@Id" },
+                new object[] { request ?? "", status ?? "", pageSize, pageNumber, id });
+
+            List<TotalResult> total = SQLHelper<TotalResult>.ProcedureToList("spGetAllRequireByCusTotal",
+                new string[] { "@Request", "@Status", "@Id" },
+                new object[] { request ?? "", status ?? "", id });
+
+            return new { result, total };
+        }
+
+        [HttpGet("GetById")]
+        public async Task<List<CustomerRequireDto>> GetById(long id)
+        {
+            var result = from c in _db.CustomerRequires
+                         join j in _db.Accounts on c.StaffId equals j.Id
+                         select new CustomerRequireDto()
                          {
+                             FirstName = j.FirstName,
+                             LastName = j.LastName,
+                             PhoneNumber = j.PhoneNumber,
+                             CustomerId = j.Id,
                              Id = c.Id,
-                             CustomerId = c.CustomerId,
                              Title = c.Title,
                              Description = c.Description,
                              Status = c.Status,
+                             ReceptionDate = c.ReceptionDate,
+                             StaffId = c.StaffId,
+                             Response = c.Response,
                          };
-
             return result.ToList();
-
         }
-        [HttpPost("Create")]
-        public async Task Create(CustomerRequireDto dto)
+
+        [HttpPost("CreatOrUpdate")]
+        public async Task<bool> CreateOrUpdate(CustomerRequire data)
         {
-            var newUserRequire = new CustomerRequire();
-            newUserRequire.Id = dto.Id;
-            newUserRequire.CustomerId = dto.CustomerId;
-            newUserRequire.Title = dto.Title;
-            newUserRequire.Description = dto.Description;
-            newUserRequire.Status = dto.Status;
-
-            _db.CustomerRequires.Add(newUserRequire);
-            _db.SaveChanges();
+            if(data.Id > 0) await _repo.UpdateAsync(data);
+            else await _repo.CreateAsync(data);
+            return true;
         }
-        [HttpPut("Edit")]
-        public async Task Edit(CustomerRequireDto dto)
-        {
-            var UserRequire = _db.CustomerRequires.Find(dto.Id);
-            if (UserRequire != null)
-            {
-                UserRequire.Id = dto.Id;
-                UserRequire.CustomerId = dto.CustomerId;
-                UserRequire.Title = dto.Title;
-                UserRequire.Description = dto.Description;
-                UserRequire.Status = dto.Status;
 
-                _db.CustomerRequires.Update(UserRequire);
-                _db.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("Id does not exist!");
-            }
-        }
         [HttpDelete("Delete")]
-        public async Task Delete(long id)
+        public async Task<bool> Delete(long Id)
         {
-            var check = await _db.CustomerRequires.FindAsync(id);
-            if (check != null)
-            {
-                _db.CustomerRequires.Remove(check);
-                _db.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("Id does not exist!");
-            }
+            _repo.Delete(Id);
+            return true;
         }
     }
 }

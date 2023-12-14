@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TTCSN_CustomerManage.Data;
 
-namespace TTCSN_CustomerManage.Migrations
+namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -15,94 +15,53 @@ namespace TTCSN_CustomerManage.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TTCSN_CustomerManage.Models.AccountApp", b =>
+            modelBuilder.Entity("TTCSN_CustomerManage.Models.Account", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("AccountPermissions")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("PassWord")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Id" }, "IX_Account_App")
-                        .IsUnique();
-
-                    b.ToTable("Account_App");
-                });
-
-            modelBuilder.Entity("TTCSN_CustomerManage.Models.CustomerInfor", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<long?>("Age")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClassCustomer")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getutcdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DayOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("DepartmentId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Email")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageBase64")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                    b.Property<string>("FisrtName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassWord")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Role")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Id" }, "IX_Customer_Infor")
-                        .IsUnique();
-
-                    b.ToTable("Customer_Infor");
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("TTCSN_CustomerManage.Models.CustomerRequire", b =>
@@ -118,39 +77,24 @@ namespace TTCSN_CustomerManage.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("ReceptionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Response")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("StaffId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Status")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex(new[] { "Id" }, "IX_CustomerRequire")
-                        .IsUnique();
-
-                    b.ToTable("CustomerRequire");
-                });
-
-            modelBuilder.Entity("TTCSN_CustomerManage.Models.CustomerRequire", b =>
-                {
-                    b.HasOne("TTCSN_CustomerManage.Models.CustomerInfor", "User")
-                        .WithMany("CustomerRequires")
-                        .HasForeignKey("CustomerId")
-                        .HasConstraintName("FK_CustomerRequire_Account_Infor")
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TTCSN_CustomerManage.Models.CustomerInfor", b =>
-                {
-                    b.Navigation("CustomerRequires");
+                    b.ToTable("CustomerRequires");
                 });
 #pragma warning restore 612, 618
         }

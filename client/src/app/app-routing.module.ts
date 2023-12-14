@@ -1,15 +1,21 @@
-import { CustomersComponent } from './customers/customers.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CustomerRequiresComponent } from './customer-requires/customer-requires.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { CustomerSupportComponent } from './customer-support/customer-support.component';
+import { CustomerReportComponent } from './customer-report/customer-report.component';
+import { MangeAccountComponent } from './mange-account/mange-account.component';
+import { ManageCustomerSupportComponent } from './manage-customer-support/manage-customer-support.component';
+import { InfomationAccountComponent } from './infomation-account/infomation-account.component';
 
 const routes: Routes = [
-  {path:'customer', component: CustomersComponent},
-  {path:'require', component: CustomerRequiresComponent},
   {path: '', component: HomeComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'Register', component: RegisterComponent},
+  {path: 'CustomerSupport', component: CustomerSupportComponent},
+  {path: 'CustomerReport', component: CustomerReportComponent},
+  {path: 'ManageAccount', component: MangeAccountComponent},
+  {path: 'ManageCustomerRequire', component: ManageCustomerSupportComponent},
+  {path: 'Account', component: InfomationAccountComponent},
 ];
 
 @NgModule({

@@ -6245,11 +6245,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Manage_Customer\\TTCSN_CustomerManage\\API.csproj",
+      "projectUniqueName": "D:\\Angular\\Manage_Customer\\TTCSN_CustomerManage\\API.csproj",
       "projectName": "API",
-      "projectPath": "D:\\Manage_Customer\\TTCSN_CustomerManage\\API.csproj",
+      "projectPath": "D:\\Angular\\Manage_Customer\\TTCSN_CustomerManage\\API.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Manage_Customer\\TTCSN_CustomerManage\\obj\\",
+      "outputPath": "D:\\Angular\\Manage_Customer\\TTCSN_CustomerManage\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6314,6 +6314,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"

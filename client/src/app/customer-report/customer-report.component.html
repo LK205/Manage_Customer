@@ -1,0 +1,86 @@
+<section id="services" class="services p-0">
+
+    <!--  Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Phản Hồi</h2>
+        <p>Chúng tôi trân trọng sự phản hồi của bạn, đó là nguồn động viên quý báu để chúng tôi không ngừng hoàn thiện
+            và mang đến trải nghiệm tốt nhất cho bạn.</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+        <div class="row mt-2 mb-3 d-flex justify-content-between">
+            <div class="col-1">
+                <select class="form-select" id="pageSize" [(ngModel)]="pageSize" (change)="search()">
+                    <option value="9">9</option>
+                    <option value="15">15</option>
+                    <option value="21">21</option>
+                </select>
+            </div>
+            <div class="col-11 row justify-content-end">
+                <div class="col-2 me-1">
+                    <select class="form-select" id="status" [(ngModel)]="status" (change)="search()">
+                        <option value="" selected>Tất cả</option>
+                        <option value="Chưa phản hồi">Chưa phản hồi</option>
+                        <option value="Đã phản hồi">Đã phản hồi</option>
+                    </select>
+                </div>
+
+                <div class="col-3 ps-0 ms-0">
+                    <div class="input-group mb-3">
+                        <input id="request" type="text" class="form-control" placeholder="Tìm kiếm"
+                            [(ngModel)]="request" (keydown)="search($event)">
+                        <button class="btn btn-primary" type="button" id="btn_search" (click)="search()"><i
+                                class="bi bi-search"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row gy-2 d-flex justify-content-evenly">
+            <div class="col-4"  *ngFor="let item of listData">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{item.status}}</h6>
+                        <p class="card-text">{{item.description}}</p>
+                    </div>
+                    <div class="p-2 mb-2" *ngIf="item.status === 'Đã phản hồi'">
+                        <label for="response" class="form-label">Phản hồi:</label>
+                        <textarea class="form-control" id="response" name="response" style="height: 64px;" id="response"
+                            [(ngModel)]="item.response" [readOnly]="true"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-between mt-3">
+            <div class="col-xl-2 col-sm-12 " style="color: black;">
+                <p id="page_details">{{paginationTitle}}</p>
+            </div>
+
+
+            <div class="col-xl-4 col-sm-12 d-flex justify-content-end me-2">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" id="pagination">
+                        <li class="page-item" (click)="previousPage()">
+                            <button class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </button>
+                        </li>
+                        <li class="page-item" *ngIf="totalPage > 1 && pageNumber > 1"><button (click)="previousPage()" class="page-link">{{pageNumber - 1}}</button></li>
+                        <li class="page-item"><button disabled class="page-link">{{pageNumber}}</button></li>
+                        <li class="page-item" *ngIf="totalPage > 1 && pageNumber < totalPage"><button (click)="nextPage()" class="page-link">{{pageNumber + 1}}</button></li>
+                        <li class="page-item" (click)="nextPage()">
+                            <button class="page-link" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+        </div>
+    </div>
+
+</section>

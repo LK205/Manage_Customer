@@ -1,38 +1,76 @@
-<div class="row justify-content-center" style="text-align: center; color: whitesmoke; margin-top: 100px;">
-  <div class="col-4">
-    <div class="card" style="border-radius: 15px; width: 600px; margin-left: -130px;">
-      <div class="card-body p-5">
-        <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-        <div class="form-outline mb-4">
-          <input type="text" class="form-control form-control-lg" placeholder="Your Name"
-            [(ngModel)]="dataRegister.userName" />
-        </div>
+<section id="bg-custom" style="background-color: #eee;">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+  
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Đăng Ký</p>
+  
+                  <form class="mx-1 mx-md-4">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <div class="form-floating mb-2">
+                          <input type="text" name="firstName" class="form-control" autocomplete="off" placeholder="Họ đệm" [(ngModel)]="dataAccount.firstName" >
+                          <label for="floatingName">Họ</label>
+                        </div>
+                      </div> 
+  
+                      <div class="col-6">
+                        <div class="form-floating mb-2">
+                          <input type="text" name="lastName" class="form-control" autocomplete="off" placeholder="Tên" [(ngModel)]="dataAccount.lastName">
+                          <label for="floatingName">Tên</label>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-floating mb-2">
+                      <input type="text" name="email" class="form-control" autocomplete="off" placeholder="Email" [(ngModel)]="dataAccount.email">
+                      <label for="floatingEmail">Email</label>
+                    </div>
 
-        <div class="form-outline mb-4">
-          <input type="email" class="form-control form-control-lg" placeholder="Your Email"
-            [(ngModel)]="dataRegister.email" />
-        </div>
-
-        <div class="form-outline mb-4">
-          <input type="password" class="form-control form-control-lg" placeholder="Password"
-            [(ngModel)]="dataRegister.passWord" />
-        </div>
-
-        <div class="form-outline mb-4">
-          <input type="password" class="form-control form-control-lg" placeholder="Repeat your password"
-            [(ngModel)]="confirmPassword" />
-        </div>
-
-        <div class="form-check d-flex justify-content-center mb-5">
-          <input class="form-check-input me-2" type="checkbox" [(ngModel)]="checkBox" />
-          <label class="form-check-label" for="form2Example3g">
-            I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
-          </label>
-        </div>
-        <div class="d-flex justify-content-center">
-          <button type="button" (click)="register()" class="btn btn-primary btn-lg me-2">Register</button>
+                    <div class="form-floating mb-2">
+                      <input type="text" name="phoneNumber" class="form-control" autocomplete="off" placeholder="Điện thoại" [(ngModel)]="dataAccount.phoneNumber">
+                      <label for="floatingName">Điện thoại</label>
+                    </div>
+  
+                    <div class="form-floating mb-2">
+                      <input type="password" name="passWord" class="form-control" autocomplete="off" placeholder="Mật khẩu" [(ngModel)]="dataAccount.password">
+                      <label for="floatingName">Mật khẩu</label>
+                    </div>
+  
+                    <div class="form-floating mb-2">
+                      <input type="password" name="confirmPassword" class="form-control" autocomplete="off" placeholder="Xác nhận mật khẩu"  [(ngModel)]="confirmPass">
+                      <label for="floatingName">Xác nhận mật khẩu</label>
+                    </div>
+  
+                    <div class="col-12 mb-2">
+                      <div class="form-check">
+                        <input class="form-check-input" name="checkDK" type="checkbox" id="gridCheck" [(ngModel)]="checkBox" >
+                        <label class="form-check-label" for="gridCheck">
+                          Xác nhận đồng ý các điều khoản của chúng tôi! <a href="/" class="text-primary text-decoration-underline">Điều khoản</a>
+                        </label>
+                      </div>
+                    </div>
+  
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                      <button type="submit" class="btn btn-primary btn-lg" (click)="register()">Đăng ký</button>
+                    </div>
+  
+                  </form>
+  
+                </div>
+                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+  
+                  <img src="../../assets/img/cta-bg.jpg" class="img-fluid border-image" alt="Sample image">
+  
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>

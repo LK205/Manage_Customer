@@ -13,6 +13,9 @@ namespace TTCSN_CustomerManage.Models
         public string Description { get; set; }
         public string Status { get; set; }
 
-        public virtual CustomerInfor User { get; set; }
+        public DateTime ReceptionDate { get; set; }
+        public long StaffId { get; set; }
+        public string Response { get; set; }
+
     }
 }
