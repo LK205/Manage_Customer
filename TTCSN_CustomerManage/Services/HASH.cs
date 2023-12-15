@@ -5,7 +5,7 @@ namespace API.Services
 {
     public class HASH
     {
-        public static string ToSHA256(string str)
+        public static string ToSHA256(string? str)
         {
             using var sha256 = SHA256.Create();
             byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(str));

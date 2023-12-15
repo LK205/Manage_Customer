@@ -10,7 +10,7 @@ export class CustomerReportComponent implements OnInit{
   request: string = "";
   pageSize: number = 9;
   pageNumber: number = 1;
-  status = "";
+  status = "Chưa phản hồi";
   totalPage: number = 10;
   paginationTitle: string = "";
   listData: any[] | undefined;

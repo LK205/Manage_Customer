@@ -26,17 +26,17 @@ namespace TTCSN_CustomerManage.Controllers
         [HttpGet("Login")]
         public async Task<Account> Login(string email, string password)
         {
-            Account account = _db.Accounts.FirstOrDefault(p=> p.Email == email && p.PassWord == HASH.ToSHA256(password ?? "") && p.IsActive);
-            return account ?? null;
+            Account account = _repo.GetAll().FirstOrDefault(p=> p.Email.ToLower() == email.ToLower() && p.PassWord == HASH.ToSHA256(password ?? "") && p.IsActive == true);
+            return account;
         }
 
         [HttpPost("Register")]
         public async Task<bool> Register(Account data)
         {
-            bool check = _repo.GetAll().Any(p=> p.Email == data.Email && p.Id != data.Id);
-            //Bị trùng email!
+            //Trùng email!
+            bool check = _repo.GetAll().Any(p=> p.Email.ToLower() == data.Email.ToLower() && p.Id != data.Id);
             if (check) return false;
-
+            data.Email = data.Email.ToLower();
             data.CreationTime = DateTime.Now;
             data.Role = 0;
             data.PassWord = HASH.ToSHA256(data.PassWord ?? "");
@@ -84,6 +84,7 @@ namespace TTCSN_CustomerManage.Controllers
             await _repo.UpdateAsync(account);
             return true;
         }
+
         [HttpGet("ChangePassword")]
         public async Task<bool> ChangePassword(long id, string oldPassword, string newPassword)
         {

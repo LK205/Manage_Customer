@@ -35,7 +35,11 @@ export class MangeAccountComponent implements OnInit {
       this.listData = res.result;
       this.listData.forEach(res => {
         res.dayOfBirth = new Date(res.dayOfBirth).toLocaleDateString()
+        res.avatar = res.avatar === "" ? null : res.avatar;
       })
+
+      this.totalPage = Math.ceil(res.total[0].totalCount / this.pageSize);
+      this.paginationTitle = "Page " + this.pageNumber + " of " +this.totalPage;
     },
       error => {
 
@@ -72,6 +76,17 @@ export class MangeAccountComponent implements OnInit {
 
   createOrUpdate() {
     this.data.dayOfBirth = new Date(this.data.dayOfBirth)
+
+    if(this.data.firstName === null || this.data.firstName.trim() === ""){
+      return alert("Trường Tên KHÔNG được bỏ trống!");
+    }
+    if(this.data.phoneNumber === null || this.data.phoneNumber.trim() === ""){
+      return alert("Trường Điện thoại KHÔNG được bỏ trống!");
+    }
+    if(this.data.dayOfBirth === null || this.data.dayOfBirth === ""){
+      return alert("Ngày sinh không hợp lệ!");
+    }
+    
     this._service.updateAccount(this.data).subscribe(res => {
       alert("Cập nhật thành công!");
       this.closeModal();

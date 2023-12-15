@@ -42,14 +42,14 @@
                         <td scope="col">{{item.email}}</td>
                         <td scope="col" class="text-center">{{item.dayOfBirth}}</td>
                         <td scope="col" style="width: 15%;" class="text-center"><img src="{{item.avatar ?? '../../assets/user.png'}}"
-                                alt="Image mt-2" class="image" style="width: 50%;"></td>
+                                alt="Image mt-2" class="image" style="width: 30%;"></td>
                         <td scope="col" class="text-center">
                             <div class="form-check form-switch d-flex justify-content-center">
                                 <input class="form-check-input" type="checkbox" role="switch"
                                     id='{{"flexSwitchCheckChecked"+item.id}}' [checked]="item.isActive" style="cursor: pointer;" (change)="changeActive(item.id)">
                             </div>
                         </td>
-                        <td scope="col">{{item.classCustomer}}</td>
+                        <td scope="col" class="text-center">{{item.classCustomer}}</td>
                         <td scope="col" class="text-center">
                             <button type="button" class="btn btn-secondary btn-sm" (click)="getById(item)"><i class="bi bi-pencil-square"></i> Sửa</button>
                         </td>
@@ -101,33 +101,34 @@
           <h1 class="modal-title fs-5" id="modalCustomerLabel"></h1>
           <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
         </div>
-        <div class="modal-body row">
+        <div class="modal-body row gy-2">
             <div class="col-6">
                 <label for="firstName" class="form-label">Họ</label>
-                <input type="text" class="form-control" name="firstName" [(ngModel)]="data.firstName">
+                <input type="text" class="form-control"  name="firstName" id="firstName" [(ngModel)]="data.firstName">
             </div>
 
             <div class="col-6">
                 <label for="lastName" class="form-label">Tên</label>
-                <input type="text" class="form-control" name="lastName" [(ngModel)]="data.lastName">
+                <input type="text" class="form-control" name="lastName" id="lastName" [(ngModel)]="data.lastName">
             </div>
 
             <div class="col-12">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" name="email" [(ngModel)]="data.email" [readOnly]="true">
+                <input type="text" class="form-control" name="email" id="email" [(ngModel)]="data.email" [readOnly]="true">
             </div>
 
             <div class="col-12">
                 <label for="phoneNumber" class="form-label">Điện thoại</label>
-                <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="data.phoneNumber">
+                <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" [(ngModel)]="data.phoneNumber">
             </div>
 
             <div class="col-12">
                 <label for="dayOfBirth" class="form-label">Ngày sinh</label>
-                <input type="date" class="form-control" name="dayOfBirth" [(ngModel)]="data.dayOfBirth">
+                <input type="date" class="form-control" name="dayOfBirth" id="dayOfBirth" [(ngModel)]="data.dayOfBirth">
             </div>
             <div class="col-12">
-                <select class="form-select" id="pageSize" [(ngModel)]="data.classCustomer">
+                <label for="classCus" class="form-label">Nhóm ưu tiên</label>
+                <select class="form-select" id="classCus" [(ngModel)]="data.classCustomer">
                     <option value="Đồng">Đồng</option>
                     <option value="Bạc">Bạc</option>
                     <option value="Vàng">Vàng</option>
@@ -136,7 +137,7 @@
             </div>
             <div class="col-12 mt-3">
                 <div class="container" style="width: 200px; border: solid 1px;">
-                    <img src="{{data.avatar || '../assets/user.png'}}" alt="Image mt-2" class="image"
+                    <img src="{{data.avatar || '../assets/user.png'}}" alt=""  class="image"
                         style="width: 100%;">
 
                 </div>

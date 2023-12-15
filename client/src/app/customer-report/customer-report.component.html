@@ -19,7 +19,7 @@
             <div class="col-11 row justify-content-end">
                 <div class="col-2 me-1">
                     <select class="form-select" id="status" [(ngModel)]="status" (change)="search()">
-                        <option value="" selected>Tất cả</option>
+                        <option value="">Tất cả</option>
                         <option value="Chưa phản hồi">Chưa phản hồi</option>
                         <option value="Đã phản hồi">Đã phản hồi</option>
                     </select>
@@ -36,18 +36,19 @@
 
             </div>
         </div>
-        <div class="row gy-2 d-flex justify-content-evenly">
+
+        <div class="row gy-2 ">
             <div class="col-4"  *ngFor="let item of listData">
-                <div class="card shadow-sm">
-                    <div class="card-body">
+                <div class="card shadow p-3 h-100">
+                    <div class="mb-2 rounded p-2"  style="background: aliceblue;"> 
                         <h5 class="card-title">{{item.title}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{item.status}}</h6>
-                        <p class="card-text">{{item.description}}</p>
+                        <p class="card-text mb-2">{{item.description}}</p>
                     </div>
-                    <div class="p-2 mb-2" *ngIf="item.status === 'Đã phản hồi'">
-                        <label for="response" class="form-label">Phản hồi:</label>
-                        <textarea class="form-control" id="response" name="response" style="height: 64px;" id="response"
-                            [(ngModel)]="item.response" [readOnly]="true"></textarea>
+
+                    <div class="p-2 mb-2" *ngIf="item.status === 'Đã phản hồi'" >
+                        <h5 class="card-title">Phản hồi:</h5>
+                        <h6 style="overflow: auto; height: 100px;">{{item.response}}</h6>
                     </div>
                 </div>
             </div>
@@ -63,17 +64,17 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination" id="pagination">
                         <li class="page-item" (click)="previousPage()">
-                            <button class="page-link" aria-label="Previous">
+                            <a class="page-link" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
-                            </button>
+                            </a>
                         </li>
-                        <li class="page-item" *ngIf="totalPage > 1 && pageNumber > 1"><button (click)="previousPage()" class="page-link">{{pageNumber - 1}}</button></li>
-                        <li class="page-item"><button disabled class="page-link">{{pageNumber}}</button></li>
-                        <li class="page-item" *ngIf="totalPage > 1 && pageNumber < totalPage"><button (click)="nextPage()" class="page-link">{{pageNumber + 1}}</button></li>
+                        <li class="page-item" *ngIf="totalPage > 1 && pageNumber > 1"><a (click)="previousPage()" class="page-link">{{pageNumber - 1}}</a></li>
+                        <li class="page-item"><a disabled class="page-link">{{pageNumber}}</a></li>
+                        <li class="page-item" *ngIf="totalPage > 1 && pageNumber < totalPage"><a (click)="nextPage()" class="page-link">{{pageNumber + 1}}</a></li>
                         <li class="page-item" (click)="nextPage()">
-                            <button class="page-link" aria-label="Next">
+                            <a class="page-link" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </nav>

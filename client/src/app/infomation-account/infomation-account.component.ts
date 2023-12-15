@@ -12,6 +12,11 @@ export class InfomationAccountComponent implements OnInit {
   currentPassword = "";
   confirmPassword = "";
   dateFormat = "";
+  lastName = "";
+  firstName = "";
+  phoneNumber = "";
+  avatar = "";
+
 
   constructor(private _service: AccountService){}
   ngOnInit(): void {
@@ -24,6 +29,13 @@ export class InfomationAccountComponent implements OnInit {
     this.userData.avatar = (this.userData.avatar === null || this.userData.avatar.trim() === "") ? null : this.userData.avatar;
     this.userData.dayOfBirth = new Date(this.userData.dayOfBirth).toLocaleDateString()
     this.userData.passWord = "";
+
+    this.lastName = this.userData.lastName;
+    this.firstName = this.userData.firstName;
+    this.phoneNumber = this.userData.phoneNumber;
+    this.avatar = this.userData.avatar;
+
+
     let parts = this.userData.dayOfBirth.split('/');
     let date = new Date(`${parts[1]}/${parts[0]}/${parts[2]}`);
     this.dateFormat = this.getFormattedDate(date);
@@ -31,10 +43,14 @@ export class InfomationAccountComponent implements OnInit {
 
 
   updateAccount(){
-    console.log(this.userData);
+    this.userData.firstName = this.firstName.trim();
+    this.userData.lastName = this.lastName.trim();
+    this.userData.avatar = this.avatar;
+    this.userData.phoneNumber = this.phoneNumber.trim();
     
     if(this.userData.firstName.trim() === "") return alert("Họ không được để trống!");
     if(this.userData.lastName.trim() === "") return alert("Tên không được để trống!");
+    if(this.dateFormat.trim() === "") return alert("Ngày không hợp lệ!");
 
     this.userData.dayOfBirth = new Date(this.dateFormat);
     this._service.updateAccount(this.userData).subscribe(res=>{
@@ -71,7 +87,7 @@ export class InfomationAccountComponent implements OnInit {
     var reader = new FileReader();
     reader.readAsDataURL(file.target.files[0]);
     reader.onloadend = (value: any) => {
-      this.userData.avatar = value.target.result.toString();
+      this.avatar = value.target.result.toString();
     }
   }
   getFormattedDate(date: Date): string {

@@ -83,7 +83,7 @@
                                     <div class="col-md-8 col-lg-9">
                                         <div class="col-12 mt-3">
                                             <div class="container" style="width: 200px; border: solid 1px;">
-                                                <img src="{{userData.avatar || '../assets/user.png'}}" alt="Image mt-2"
+                                                <img src="{{avatar || '../assets/user.png'}}" alt="Image mt-2"
                                                     class="image" style="width: 100%;">
 
                                             </div>
@@ -102,7 +102,7 @@
                                         <label for="firstName" class="col-md-4 col-lg-3 col-form-label">Họ</label>
                                         <div class="col-10">
                                             <input name="firstName" type="text" class="form-control" id="firstName"
-                                                [(ngModel)]="userData.firstName">
+                                                [(ngModel)]="firstName">
                                         </div>
                                     </div>
 
@@ -110,7 +110,7 @@
                                         <label for="lastName" class="col-md-4 col-lg-3 col-form-label">Tên</label>
                                         <div class="col-10">
                                             <input name="lastName" type="text" class="form-control" id="lastName"
-                                                [(ngModel)]="userData.lastName">
+                                                [(ngModel)]="lastName">
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-10">
                                             <input name="Email" type="text" class="form-control" id="Email"
-                                                [(ngModel)]="userData.email" [readOnly]="true">
+                                                [(ngModel)]="userData.email" [readOnly]="true" [disabled]="true">
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@
                                         <label for="phoneNumber" class="col-md-4 col-lg-3 col-form-label">Điện thoại</label>
                                     <div class="col-10">
                                         <input name="phoneNumber" type="text" class="form-control" id="phoneNumber"
-                                            [(ngModel)]="userData.phoneNumber">
+                                            [(ngModel)]="phoneNumber">
                                     </div>
                                     </div>
                                     
@@ -162,7 +162,7 @@
                                         tại:</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="password" type="password" class="form-control" id="currentPassword"
-                                            [(ngModel)]="currentPassword">
+                                            [(ngModel)]="currentPassword" [autocomplete]="false">
                                     </div>
                                 </div>
 
@@ -171,7 +171,7 @@
                                         mới:</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="newpassword" type="password" class="form-control" id="newPassword"
-                                            [(ngModel)]="userData.passWord">
+                                            [(ngModel)]="userData.passWord"  [autocomplete]="false">
                                     </div>
                                 </div>
 
@@ -180,7 +180,7 @@
                                         nhận:</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="renewpassword" type="password" class="form-control"
-                                            id="renewPassword" [(ngModel)]="confirmPassword">
+                                            id="renewPassword" [(ngModel)]="confirmPassword"  [autocomplete]="false">
                                     </div>
                                 </div>
 
