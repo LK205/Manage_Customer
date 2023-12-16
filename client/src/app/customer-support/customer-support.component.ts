@@ -35,7 +35,6 @@ export class CustomerSupportComponent implements OnInit {
     this.cusRequireData.customerId = this.userData.id;
     console.log(this.cusRequireData)
     this._service.createOrUpdate(this.cusRequireData).subscribe(res => {
-      console.log(res);
       this.reset();
       alert("Chúng tôi đã nhận được phản hồi của bạn. Xin cảm ơn vì sự chia sẻ của bạn!");
       },

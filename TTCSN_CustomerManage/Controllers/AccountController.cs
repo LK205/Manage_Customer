@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using TTCSN_CustomerManage.Data;
 using TTCSN_CustomerManage.Models;
@@ -41,6 +42,11 @@ namespace TTCSN_CustomerManage.Controllers
             data.Role = 0;
             data.PassWord = HASH.ToSHA256(data.PassWord ?? "");
             data.IsActive = true;
+            data.Avatar = data.Avatar ?? "";
+
+            data.DayOfBirth =  new DateTime(2023,5,12);
+            data.ClassCustomer = data.ClassCustomer ?? "";
+            data.DepartmentId = 0;
 
             // 0 la khach hang
             // 1 Admin

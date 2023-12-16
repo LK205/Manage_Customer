@@ -13,43 +13,43 @@
                     <div class="row g-3">
                       <div class="col-6">
                         <div class="form-floating mb-2">
-                          <input type="text" name="firstName" class="form-control" autocomplete="off" placeholder="Họ đệm" [(ngModel)]="dataAccount.firstName" >
-                          <label for="floatingName">Họ</label>
+                          <input type="text" name="firstName" id="firstName" class="form-control" autocomplete="off" placeholder="Họ đệm" [(ngModel)]="dataAccount.firstName" >
+                          <label for="firstName">Họ</label>
                         </div>
                       </div> 
   
                       <div class="col-6">
                         <div class="form-floating mb-2">
-                          <input type="text" name="lastName" class="form-control" autocomplete="off" placeholder="Tên" [(ngModel)]="dataAccount.lastName">
-                          <label for="floatingName">Tên</label>
+                          <input type="text" name="lastName" id="lastName" class="form-control" autocomplete="off" placeholder="Tên" [(ngModel)]="dataAccount.lastName">
+                          <label for="lastName">Tên</label>
                         </div>
                       </div>
                     </div>
   
                     <div class="form-floating mb-2">
-                      <input type="text" name="email" class="form-control" autocomplete="off" placeholder="Email" [(ngModel)]="dataAccount.email">
-                      <label for="floatingEmail">Email</label>
+                      <input type="text" name="email" id="email" class="form-control" autocomplete="off" placeholder="Email" [(ngModel)]="dataAccount.email">
+                      <label for="email">Email</label>
                     </div>
 
                     <div class="form-floating mb-2">
-                      <input type="text" name="phoneNumber" class="form-control" autocomplete="off" placeholder="Điện thoại" [(ngModel)]="dataAccount.phoneNumber">
-                      <label for="floatingName">Điện thoại</label>
+                      <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" autocomplete="off" placeholder="Điện thoại" [(ngModel)]="dataAccount.phoneNumber">
+                      <label for="phoneNumber">Điện thoại</label>
                     </div>
   
                     <div class="form-floating mb-2">
-                      <input type="password" name="passWord" class="form-control" autocomplete="off" placeholder="Mật khẩu" [(ngModel)]="dataAccount.password">
-                      <label for="floatingName">Mật khẩu</label>
+                      <input type="password" name="passWord" id="passWord" class="form-control" autocomplete="off" placeholder="Mật khẩu" [(ngModel)]="dataAccount.password">
+                      <label for="passWord">Mật khẩu</label>
                     </div>
   
                     <div class="form-floating mb-2">
-                      <input type="password" name="confirmPassword" class="form-control" autocomplete="off" placeholder="Xác nhận mật khẩu"  [(ngModel)]="confirmPass">
-                      <label for="floatingName">Xác nhận mật khẩu</label>
+                      <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" autocomplete="off" placeholder="Xác nhận mật khẩu"  [(ngModel)]="confirmPass">
+                      <label for="confirmPassword">Xác nhận mật khẩu</label>
                     </div>
   
                     <div class="col-12 mb-2">
                       <div class="form-check">
-                        <input class="form-check-input" name="checkDK" type="checkbox" id="gridCheck" [(ngModel)]="checkBox" >
-                        <label class="form-check-label" for="gridCheck">
+                        <input class="form-check-input" name="checkDK" type="checkbox" id="checkDK" [(ngModel)]="checkBox" >
+                        <label class="form-check-label" for="checkDK">
                           Xác nhận đồng ý các điều khoản của chúng tôi! <a href="/" class="text-primary text-decoration-underline">Điều khoản</a>
                         </label>
                       </div>
