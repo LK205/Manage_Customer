@@ -98,7 +98,7 @@ export class MangeAccountComponent implements OnInit {
       lastName: "",
       phoneNumber: "",
       role: 0,
-    }
+    };
     this.confirmPassword = "";
     $('#modalCustomer').modal('show');
   }
@@ -154,9 +154,9 @@ export class MangeAccountComponent implements OnInit {
       return alert("Nhóm ưu Không tiên được để trống!");
     }
 
-    this._service.register(this.data).subscribe(res=>{
-      alert("Tạo tài khoản thành công!");
-      this.closeModal();
+    this._service.register(this.data).subscribe(async res=>{
+      await this.closeModal();
+      await alert("Tạo tài khoản thành công!");
     })
   }
 
@@ -179,9 +179,9 @@ export class MangeAccountComponent implements OnInit {
       return alert("Nhóm ưu tiên được để trống!");
     }
     
-    this._service.updateAccount(this.data).subscribe(res => {
-      alert("Cập nhật thành công!");
-      this.closeModal();
+    this._service.updateAccount(this.data).subscribe(async (res) => {
+      await this.closeModal();
+      await alert("Cập nhật thành công!");
     })
   }
 

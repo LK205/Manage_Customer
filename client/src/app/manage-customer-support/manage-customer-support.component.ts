@@ -61,8 +61,8 @@ export class ManageCustomerSupportComponent implements OnInit{
     const parts = this.data.receptionDate.split('/');
     this.data.receptionDate = new Date(`${parts[1]}/${parts[0]}/${parts[2]}`);
     this._service.createOrUpdate(this.data).subscribe(res => {
-      alert("Đã phản hồi thành công!");
       this.closeModal();
+      alert("Đã phản hồi thành công!");
     }, error => {
       alert("Đã xảy ra lỗi gì đó! Hãy kiểm tra lại đường truyền!")
     })

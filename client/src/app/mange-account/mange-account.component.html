@@ -39,8 +39,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of listData ; let i = index" class="align-middle">
-                        <td scope="col" style="color: blue; cursor: pointer;" class="text-center">
-                            <a (click)="showModalDetail(item.id)"> {{item.firstName + " " + item.lastName}}</a>
+                        <td scope="col" class="text-center">
+                            <a (click)="showModalDetail(item.id)"  style="color: blue; cursor: pointer;"> {{item.firstName + " " + item.lastName}}</a>
                         </td>
                         <td scope="col">{{item.phoneNumber}}</td>
                         <td scope="col">{{item.email}}</td>
@@ -159,7 +159,7 @@
                     <div class="col-12">
                         <label for="classCus" class="form-label">Nhóm ưu tiên</label>
                         <select class="form-select" id="classCus" [(ngModel)]="data.classCustomer" name="classCus">
-                            <option value="">Chọn nhóm ưu tiên</option>
+                            <option value="" hidden>Chọn nhóm ưu tiên</option>
                             <option value="Đồng">Đồng</option>
                             <option value="Bạc">Bạc</option>
                             <option value="Vàng">Vàng</option>
