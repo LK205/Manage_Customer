@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row mt-2 mb-3 d-flex justify-content-between">
         <div class="col-1">
             <select class="form-select" id="pageSize" [(ngModel)]="pageSize" (change)="search()">
@@ -29,27 +29,28 @@
         </div>
     </div>
    
-    <div class="container-fluid table-reponsive">
+    <div class="table-reponsive">
         <table class="table table-striped table-bordered border-success">
             <thead>
                 <tr class="text-center align-middle">
-                    <th scope="col" style="background-color: cornflowerblue;">Họ tên</th>
+                    <th scope="col" style="background-color: cornflowerblue;width: 15%">Họ tên</th>
                     <th scope="col" style="background-color: cornflowerblue;">Tiêu đề</th>
                     <th scope="col" style="background-color: cornflowerblue;">Nội dung</th>
                     <th scope="col" style="background-color: cornflowerblue;">Ngày gửi</th>
                     <th scope="col" style="background-color: cornflowerblue;">Trạng thái</th>
-                    <th scope="col" style="background-color: cornflowerblue;">Tác vụ</th>
+                    <th scope="col" style="background-color: cornflowerblue; width: 11%">Tác vụ</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of listData ; let i = index" class="align-middle">
-                    <td scope="col"> <p (click)="getData(item)" style="color: blue; cursor: pointer;" class="text-center">{{item.firstName + " " + item.lastName}}</p></td>
+                    <td scope="col"> <p class="text-center">{{item.firstName + " " + item.lastName}}</p></td>
                     <td scope="col">{{item.title}}</td>
                     <td scope="col">{{item.description}}</td>
                     <td scope="col" class="text-center">{{item.receptionDate}}</td>
                     <td scope="col">{{item.status}}</td>
                     <td scope="col" class="text-center">
-                        <button type="button" class="btn btn-secondary btn-sm" (click)="getData(item)" title="Phản hồi"><i class="bi bi-calendar2-minus"></i></button>
+                        <button type="button" class="btn btn-secondary btn-sm me-1" (click)="getData(item)" title="Phản hồi"><i class="bi bi-calendar2-minus"></i> Phản hồi</button>
+                        <button type="button" class="btn btn-danger btn-sm" (click)="delete(item.id)" title="Xóa"><i class="bi bi-trash"></i> Xóa</button>
                     </td>
                 </tr>
             </tbody>
@@ -97,6 +98,7 @@
           <h1 class="modal-title fs-5" id="modalCustomerRequireLabel"></h1>
           <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
         </div>
+        <form id="form">
         <div class="modal-body row gy-2">
             <div class="col-12">
                 <label for="title" class="form-label">Tiêu đề:</label>
@@ -110,13 +112,14 @@
 
             <div class="col-12">
                 <label for="description" class="form-label">Phản hồi khách hàng:</label>
-                <textarea class="form-control" name="response" id="response" style="min-height: 64px;" [(ngModel)]="data.response"></textarea>
+                <textarea class="form-control" name="response" id="response" style="height: 120px;" [(ngModel)]="data.response"></textarea>
             </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closeModal()">Đóng</button>
           <button type="button" class="btn btn-primary" (click)="createOrUpdate()"><i class="bi bi-check-lg"></i> Lưu</button>
         </div>
+        </form>
       </div>
     </div>
   </div>

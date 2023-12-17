@@ -26,6 +26,7 @@ export class NavBarComponent implements OnInit {
   login() {
     this._accountService.login(this.email, this.password).subscribe(res => {
       if (res) {
+        res.passWord = "";
         localStorage.setItem('user', JSON.stringify(res));
         this._accountService.setCurrentUser(res);
         this.isLogin = true;

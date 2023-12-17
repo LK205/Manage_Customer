@@ -42,10 +42,10 @@ namespace TTCSN_CustomerManage.Controllers
             data.Role = 0;
             data.PassWord = HASH.ToSHA256(data.PassWord ?? "");
             data.IsActive = true;
-            data.Avatar = data.Avatar ?? "";
 
-            data.DayOfBirth =  new DateTime(2023,5,12);
-            data.ClassCustomer = data.ClassCustomer ?? "";
+            data.Avatar = data.Avatar ?? "";
+            data.DayOfBirth =  data.DayOfBirth == null ?  DateTime.Now : data.DayOfBirth;
+            data.ClassCustomer = data.ClassCustomer ?? "Đồng";
             data.DepartmentId = 0;
 
             // 0 la khach hang
@@ -120,6 +120,13 @@ namespace TTCSN_CustomerManage.Controllers
         public async Task<Account> GetById(long Id)
         {
             return _repo.GetByID(Id);
+        }
+
+        [HttpDelete("Delete")]
+        public async Task<bool> Delete(long Id)
+        {
+            _repo.Delete(Id);
+            return true;
         }
     }
 }

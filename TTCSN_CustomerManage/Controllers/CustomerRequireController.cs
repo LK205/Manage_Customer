@@ -86,5 +86,16 @@ namespace API.Controllers
             _repo.Delete(Id);
             return true;
         }
+
+        [HttpDelete("DeleteAllById")]
+        public async Task<bool> DeleteAllById(long Id)
+        {
+            var result = _repo.GetAll().Where(p=> p.CustomerId == Id);
+            foreach (var item in result)
+            {
+                _repo.Delete(item.Id);
+            }
+            return true;
+        }
     }
 }

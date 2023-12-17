@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/_services/account.service';
+import { CustomerRequireService } from 'src/_services/customer-require.service';
 declare var $: any;
 @Component({
   selector: 'app-mange-account',
@@ -7,7 +8,7 @@ declare var $: any;
   styleUrls: ['./mange-account.component.css']
 })
 export class MangeAccountComponent implements OnInit {
-
+  regEmail = /^\w+@[a-zA-Z]+\.com$/i;
   pageSize: number = 10;
   pageNumber: number = 1;
   totalPage: number = 10;
@@ -15,7 +16,7 @@ export class MangeAccountComponent implements OnInit {
   request = "";
   listData?: any[];
   data: any = {
-    avatar: "",
+    avatar:  "",
     classCustomer: "",
     dayOfBirth: new Date,
     departmentId: 0,
@@ -25,7 +26,20 @@ export class MangeAccountComponent implements OnInit {
     phoneNumber: "",
     role: 0,
   }
-  constructor(private _service: AccountService) { }
+  dataDetails: any = {
+    avatar:  "",
+    classCustomer: "",
+    dayOfBirth: new Date,
+    departmentId: 0,
+    firstName: "",
+    id: 0,
+    lastName: "",
+    phoneNumber: "",
+    role: 0,
+  };
+  listDataDetails: any;
+  confirmPassword = ""
+  constructor(private _service: AccountService, private _cusRequireService: CustomerRequireService) { }
   ngOnInit(): void {
     this.getAll();
   }
@@ -73,18 +87,96 @@ export class MangeAccountComponent implements OnInit {
     this.search();
     $('#modalCustomer').modal('hide');
   }
-
-  createOrUpdate() {
-    this.data.dayOfBirth = new Date(this.data.dayOfBirth)
-
-    if(this.data.firstName === null || this.data.firstName.trim() === ""){
+  showModal(){
+    this.data = {
+      avatar: "",
+      classCustomer: "",
+      dayOfBirth: "",
+      departmentId: 0,
+      firstName: "",
+      id: 0,
+      lastName: "",
+      phoneNumber: "",
+      role: 0,
+    }
+    this.confirmPassword = "";
+    $('#modalCustomer').modal('show');
+  }
+  async showModalDetail(id:number){
+    await this._service.getById(id).subscribe(res=>{
+      this.dataDetails = res;
+      this.dataDetails.dayOfBirth = new Date(this.dataDetails.dayOfBirth).toLocaleDateString();
+      this.dataDetails.avatar =  (this.dataDetails.avatar === null || this.dataDetails.avatar.trim() === "") ? null : this.dataDetails.avatar;
+    })
+    await this._cusRequireService.getAllById(id,"","",5,1).subscribe(result=>{
+      this.listDataDetails = result.result;
+      this.listDataDetails.forEach(res1 =>{
+        res1.receptionDate = new Date(res1.receptionDate).toLocaleDateString();
+      })
+    })
+    $('#modalCustomerDetail').modal('show');
+  }
+  createOrUpdate(){
+    if(this.data.id > 0){
+      this.Update();
+    }
+    else{
+      this.Create();
+    }
+  }
+  Create(){
+    
+    if(!this.data.firstName || this.data.firstName.trim() === ""){
+      return alert("Trường Họ KHÔNG được bỏ trống!");
+    }
+    if(!this.data.lastName || this.data.lastName.trim() === ""){
       return alert("Trường Tên KHÔNG được bỏ trống!");
     }
-    if(this.data.phoneNumber === null || this.data.phoneNumber.trim() === ""){
+    if(!this.data.email || this.data.email.trim() === ""){
+      return alert("Trường Email KHÔNG được bỏ trống!");
+    }
+    if(!this.regEmail.test(this.data.email)){
+      return alert("Email KHÔNG hợp lệ!");
+    }
+    if(!this.data.passWord || this.data.passWord.trim() === ""){
+      return alert("Nhập mật khẩu!");
+    }
+    if(this.data.passWord !== this.confirmPassword){
+      return alert("Mật khẩu xác nhận không chính xác!");
+    }
+    if(!this.data.phoneNumber || this.data.phoneNumber.trim() === ""){
       return alert("Trường Điện thoại KHÔNG được bỏ trống!");
     }
-    if(this.data.dayOfBirth === null || this.data.dayOfBirth === ""){
+    if(!this.data.dayOfBirth || this.data.dayOfBirth === ""){
       return alert("Ngày sinh không hợp lệ!");
+    }
+    if(!this.data.classCustomer || this.data.classCustomer === ""){
+      return alert("Nhóm ưu Không tiên được để trống!");
+    }
+
+    this._service.register(this.data).subscribe(res=>{
+      alert("Tạo tài khoản thành công!");
+      this.closeModal();
+    })
+  }
+
+  Update() {
+    this.data.dayOfBirth = new Date(this.data.dayOfBirth)
+
+    if(!this.data.lastName || this.data.lastName.trim() === ""){
+      return alert("Trường Họ KHÔNG được bỏ trống!");
+    }
+    if(!this.data.firstName || this.data.firstName.trim() === ""){
+      return alert("Trường Tên KHÔNG được bỏ trống!");
+    }
+    if(!this.data.phoneNumber || this.data.phoneNumber.trim() === ""){
+      return alert("Trường Điện thoại KHÔNG được bỏ trống!");
+    }
+    if(!this.data.dayOfBirth || this.data.dayOfBirth === ""){
+      return alert("Ngày sinh không hợp lệ!");
+    }
+    if(!this.data.classCustomer || this.data.classCustomer === ""){
+      return alert("Nhóm ưu tiên được để trống!");
     }
     
     this._service.updateAccount(this.data).subscribe(res => {
@@ -93,6 +185,18 @@ export class MangeAccountComponent implements OnInit {
     })
   }
 
+  delete(id : number){
+    if(confirm("Bạn có chắc chắn muốn xóa tài khoản này?")){
+      this._service.delete(id).subscribe(res =>{
+        this.search();
+        alert("Xóa tài khoản thành công!");
+        this._cusRequireService.deleteAllById(id).subscribe(res=>{
+
+        })
+
+      })
+    }
+  }
   previousPage() {
     if (this.pageNumber > 1) {
       this.pageNumber -= 1;

@@ -43,15 +43,16 @@ export class InfomationAccountComponent implements OnInit {
 
 
   updateAccount(){
+    
+    if(this.firstName.trim() === "") return alert("Họ không được để trống!");
+    if(this.lastName.trim() === "") return alert("Tên không được để trống!");
+    if(this.dateFormat === null || this.dateFormat.trim() === "") return alert("Ngày không hợp lệ!");
+
     this.userData.firstName = this.firstName.trim();
     this.userData.lastName = this.lastName.trim();
     this.userData.avatar = this.avatar;
     this.userData.phoneNumber = this.phoneNumber.trim();
     
-    if(this.userData.firstName.trim() === "") return alert("Họ không được để trống!");
-    if(this.userData.lastName.trim() === "") return alert("Tên không được để trống!");
-    if(this.dateFormat.trim() === "") return alert("Ngày không hợp lệ!");
-
     this.userData.dayOfBirth = new Date(this.dateFormat);
     this._service.updateAccount(this.userData).subscribe(res=>{
       localStorage.setItem('user', JSON.stringify(this.userData));

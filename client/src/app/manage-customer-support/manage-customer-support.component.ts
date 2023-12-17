@@ -92,4 +92,13 @@ export class ManageCustomerSupportComponent implements OnInit{
     const year = date.getFullYear().toString();
     return `${year}-${month}-${day}`;
   }
+  
+
+  delete(id:number){
+    if(confirm("Bạn có chắc chắc muốn xóa phản hồi này?")){
+      this._service.delete(id).subscribe(res =>{
+        this.search();
+      })
+    }
+  }
 }

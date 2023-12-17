@@ -14,7 +14,7 @@ namespace TTCSN_CustomerManage.Models
         public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DayOfBirth { get; set; }
+        public DateTime? DayOfBirth { get; set; }
         public string ClassCustomer { get; set; }
         public long Role { get; set; }
         public long DepartmentId { get; set; }

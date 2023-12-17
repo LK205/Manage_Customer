@@ -62,4 +62,9 @@ export class CustomerRequireService {
     let url = this.apiUrl + "CustomerRequire/GetById?id=" + id;
     return this.http.get<any>(url);
   }
+
+  deleteAllById(id: number){
+    let url = this.apiUrl + "CustomerRequire/DeleteAllById?id=" + id;
+    return this.http.delete<any>(url);
+  }
 }

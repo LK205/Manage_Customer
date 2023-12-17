@@ -83,4 +83,9 @@ export class AccountService {
     let _url = this.apiUrl + "Account/GetById?id=" + id;
     return this.http.get<any>(_url);
   }
+  
+  delete(id: number){
+    let _url = this.apiUrl + "Account/Delete?id=" + id;
+    return this.http.delete<any>(_url);
+  }
 }
