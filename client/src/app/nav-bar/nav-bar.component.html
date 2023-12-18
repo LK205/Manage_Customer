@@ -27,7 +27,7 @@
 
     <div class="dropdown d-flex justify-content-end align-items-center" style="max-width: 20%;" dropdown
       *ngIf="isLogin">
-      <img src="{{dataAccount.avatar ?? '../../assets/user.png'}}" alt="" style="width: 15%; border-radius: 40%;">
+      <img src="{{dataAccount.avatar || '../../assets/user.png'}}" alt="" style="width: 15%; border-radius: 40%;">
       <a class="dropdown-toggle  text-dark   ms-2" style="text-decoration: none;" data-bs-toggle="dropdown"
         aria-expanded="false">{{ dataAccount.firstName | titlecase}} {{dataAccount.lastName | titlecase}}</a>
 

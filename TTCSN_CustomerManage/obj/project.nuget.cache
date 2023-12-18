@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BBw8wXH802pSKiGYqhryXhvNbw6EVYxx3jHDRee10S4ck10uIL4nABe4HooraXvVAPaXPoVyAxp52sx9yIIO6Q==",
+  "dgSpecHash": "l4JtY3xA/kacFP01S725aLmk4POgdRpuP00q5ZWA+i9eG3Y3gV/8HESU4wak+OQV979rQvmDpqiUr/FcNxgC0Q==",
   "success": true,
   "projectFilePath": "D:\\Angular\\Manage_Customer\\TTCSN_CustomerManage\\API.csproj",
   "expectedPackageFiles": [
@@ -106,8 +106,7 @@
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
+    "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

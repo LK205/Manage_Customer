@@ -68,7 +68,7 @@
               </div>
 
               <div class="col-md-12 text-center">
-                <button class="btn btn-outline-secondary" type="submit" (click)="sendRequest()">Gửi yêu cầu</button>
+                <button class="btn btn-outline-secondary" type="submit" (click)="sendRequest()" [disabled]="userData.role === 1">Gửi yêu cầu</button>
               </div>
 
             </div>

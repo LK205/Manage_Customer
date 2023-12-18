@@ -23,11 +23,11 @@ export class CustomerSupportComponent implements OnInit {
   constructor(private _service: CustomerRequireService, private _accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.userData = JSON.parse(localStorage.getItem('user') || "0");
   }
 
   sendRequest() {
     this.userData = JSON.parse(localStorage.getItem('user') || "0");
-    console.log(this.userData)
     if (this.userData === 0) return alert("Đăng nhập để sử dụng dịch vụ!");
     if (!this.cusRequireData.title.trim()) return alert("Trường Tiêu đề KHÔNG được để trống!");
     if (!this.cusRequireData.description.trim()) return alert("Trường Nội dung KHÔNG được để trống!");

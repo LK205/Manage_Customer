@@ -128,3 +128,4 @@ D:\Angular\Manage_Customer\TTCSN_CustomerManage\obj\Debug\net5.0\API.RazorTarget
 D:\Angular\Manage_Customer\TTCSN_CustomerManage\obj\Debug\net5.0\API.csproj.CopyComplete
 D:\Angular\Manage_Customer\TTCSN_CustomerManage\obj\Debug\net5.0\API.genruntimeconfig.cache
 D:\Angular\Manage_Customer\TTCSN_CustomerManage\obj\Debug\net5.0\ref\API.dll
+D:\Angular\Manage_Customer\TTCSN_CustomerManage\obj\Debug\net5.0\API.sourcelink.json
