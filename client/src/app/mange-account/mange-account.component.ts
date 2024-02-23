@@ -177,7 +177,7 @@ export class MangeAccountComponent implements OnInit {
     }
     if(!this.data.classCustomer || this.data.classCustomer === ""){
       return alert("Nhóm ưu tiên được để trống!");
-    }
+    } 
     
     this._service.updateAccount(this.data).subscribe(async (res) => {
       await this.closeModal();

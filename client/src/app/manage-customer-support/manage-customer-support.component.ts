@@ -21,7 +21,7 @@ export class ManageCustomerSupportComponent implements OnInit{
 
   constructor(private _service: CustomerRequireService){}
   ngOnInit(): void {
-    this.getAll();
+    this.getAll(); 
   }
 
   getAll(){

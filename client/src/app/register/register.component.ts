@@ -67,11 +67,14 @@ export class RegisterComponent implements OnInit {
     }
 
     this._serviceAccount.register(this.dataAccount).subscribe(res => {
-      this.reset();
-      alert("Đăng ký thành công!");
+      if(res){
+        this.reset();
+        alert("Đăng ký thành công!");
+      }
+      else alert("Email đã bị trùng!");
     },
       error => {
-        alert("Email đã được sử dụng!")
+        alert("Lỗi kết nối!")
       });
 
 
